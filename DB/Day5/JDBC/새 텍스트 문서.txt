@@ -1,0 +1,27 @@
+String dept_where="";
+		String job_where="";
+		String op = " where "; 
+        if(dept2!=0){
+        	dept_where = op + " department_id=" + dept2;
+        	op = " and ";
+        }
+        if(!job.equals("all")){
+        	job_where = op + " job_id = '" + job + "'";
+        }
+	    String sql = SELECT_ALL + dept_where + job_where;		
+	    List<EmpDTO> emplist = new ArrayList<EmpDTO>();
+		Connection conn = DBUtil.getConnect();
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		try {
+			st = conn.prepareStatement(sql);			
+			rs = st.executeQuery();
+			while (rs.next()) {
+				makeEmp(rs, emplist);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			DBUtil.close(conn, st, rs);
+		}
+		return emplist;
