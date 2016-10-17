@@ -1,0 +1,14 @@
+?테이블 명 : stadium_t
+?칼럼명: 
+stadium_id (구장 고유 id) 문자 고정 자릿수 3자리,	
+stadium_name (구장 명) 문자 가변 자릿수 20자리,
+hometeam_id (홈팀 고유 id) 문자 고정 자릿수 3자리,
+seat_count (보유 좌석 수) 숫자형,
+address(주소) 문자 가변 자릿수 60자리,
+ddd(지역번호) 문자 가변 자릿수 3자리,
+tel	(전화번호) 문자 가변 자릿수 10자리,
+fax	 (팩스번호) 문자 가변 자릿수 10자리
+?제약조건 : 기본 키(Primary Key) ? stadium id
+             (제약 조건명은 STADIUM_T_STADIUM_ID_PK)
+  값이 반드시 존재(NOT NULL) ? stadium_name
+             (제약 조건명은 STADIUM_NAME_NN)

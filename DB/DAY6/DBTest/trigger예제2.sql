@@ -1,0 +1,54 @@
+
+
+CREATE TABLE ORDER_LIST (
+ORDER_DATE CHAR(8) NOT NULL,
+PRODUCT VARCHAR2(10) NOT NULL,
+QTY NUMBER NOT NULL,
+AMOUNT NUMBER NOT NULL);
+
+
+CREATE TABLE SALES_PER_DATE (
+SALE_DATE CHAR(8) NOT NULL,
+PRODUCT VARCHAR2(10) NOT NULL,
+QTY NUMBER NOT NULL,
+ AMOUNT NUMBER NOT NULL);
+
+CREATE OR REPLACE Trigger SUMMARY_SALES
+AFTER INSERT
+ ON ORDER_LIST
+ FOR EACH ROW
+DECLARE
+ o_date ORDER_LIST.order_date%TYPE;
+ o_prod ORDER_LIST.product%TYPE;
+ BEGIN
+  o_date := :NEW.order_date;
+  o_prod := :NEW.product;
+  UPDATE SALES_PER_DATE
+  SET qty = qty + :NEW.qty,
+  amount = amount + :NEW.amount
+  WHERE sale_date = o_date
+   AND product = o_prod;
+ 
+ if SQL%NOTFOUND then
+   INSERT INTO SALES_PER_DATE
+   VALUES(o_date, o_prod, :NEW.qty, :NEW.amount);
+ end if;
+ END;
+  /
+
+
+INSERT INTO ORDER_LIST VALUES('20120901', 'MONOPACK', 10, 300000);
+commit;
+
+
+INSERT INTO ORDER_LIST VALUES('20120901','MULTIPACK',10,300000);
+select~~
+rollback;
+
+
+
+
+
+
+
+ 
