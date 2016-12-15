@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!-- 1line 선언은 HTML5라는 스펙의 tag를 개발 할수 있는 선언
+	- HTML5 는 html & java script 조합
+ -->
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>login.html</title>
+</head>
+<body>
+
+	<!-- 제목 표기용 tag -->
+	<h2>html tag로 client가 입력 가능한 form : input tag[입력 tag]</h2>
+	<br>
+	1. get방식 학습 form<br>	
+	<form action="idCheck" method="get">
+		id : <input type="text" name="idValue"><br>
+		pw : <input type="password" name="pwValue"><br>
+		<input type="submit" value="로그인" >	
+	</form>
+	
+	<hr color="red">
+	<br>
+	2. post 방식 학습 form<br>	
+	<form action="idCheck" method="post">
+		id : <input type="text" name="idValue"><br>
+		pw : <input type="password" name="pwValue"><br>
+		<input type="submit" value="로그인" >	
+	</form>
+	
+	
+	
+	<hr color="red">
+	<br>
+	3. servlet의 기본 개발 기법 복습<br>	
+	<form action="ok" method="post">
+		id : <input type="text" name="idValue"><br>
+		pw : <input type="password" name="pwValue"><br>
+		<input type="submit" value="로그인" >	
+	</form>
+	
+	
+	
+</body>
+</html>
+<!-- 
+	http://ip:port/project명/login.html 
+	-> id/pw입력 -> 로그인 버튼 클릭
+	-> http://ip:port/project명/idCheck
+ -->
+
+
+
+
+
+
+
+
+
