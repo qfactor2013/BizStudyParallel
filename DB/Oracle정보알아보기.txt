@@ -1,0 +1,145 @@
+※ Oracle SID 확인
+SQL> select instance from v$thread;
+
+※ Oracle DB_NAME 확인
+SQL> select name from v$database;
+
+※ Oracle User 확인
+SQL> select * from all_users;
+
+※ 등록된 User 목록 보기
+SQL> select username, user_id 
+from dba_users order by username;
+ 
+
+※ User가 소유한 모든 테이블 보기
+SQL> select table_name from user_tables;
+ 
+
+※ 사용자 정보 확인
+SQL> select username, default_tablespace,
+temporary_tablespace 
+from dba_users;
+ 
+
+※ 오브젝트 조회
+SQL> select * from all_objects 
+where object_name like '명';
+
+ 
+※ 테이블 조회
+SQL> select * from all_tables 
+where table_name like '명';
+ 
+
+※ 시퀀스 정보 보기
+SQL> select * from user_sequences;
+ 
+
+※ 시노님 조회
+SQL> select * from all_synonyms 
+where synonym_name='명';
+ 
+
+※ 테이블 인덱스 정보 조회
+SQL> select * from all_ind_columns 
+where table_name='테이블명';
+ 
+
+※ 테이블의 컬럼 정보 조회
+SQL> select * from all_tab_columns 
+where table_name='테이블명';
+ 
+
+※ table comment 쿼리
+SQL> select * from all_tab_comments where table_name='테이블명';
+ 
+
+※ column comment 쿼리
+SQL> select * from all_col_comments 
+where table_name='테이블명'; 
+
+ 
+※ TABLE 구조 보기
+SQL> DESC 테이블명;
+
+
+※ 테이블 존재 여부 확인
+SQL> select 테이블명
+          from USER_TABLES
+          where 테이블명='찾을 테이블 이름' 
+
+ 
+※ 모든 유저 보기
+SQL> select username from all_users 
+ 
+
+※ 테이블 제약조건 확인
+select table_name, constraint_name, constraint_type
+from user_constraints
+where table_name='EMPLOYEES';
+
+
+
+-- 모든 테이블 정보 보기
+SELECT * FROM user_tables;
+
+-- 모든 테이블 코멘트 정보 보기
+SELECT * FROM user_tab_comments;
+
+-- 모든 컬럼 정보 보기
+SELECT * FROM user_tab_cols;
+
+-- 모든 컬럼 코멘트 정보 보기
+SELECT * FROM user_col_comments;
+
+-- DB Link 보기
+SELECT * FROM all_db_links;
+
+-- 모든 프로시저 보기
+SELECT * FROM user_procedures WHERE OBJECT_TYPE = 'PROCEDURE';
+
+-- 프로시저 내용보기
+SELECT * FROM user_procedures, all_source WHERE OBJECT_TYPE = 'PROCEDURE';
+
+-- 모든 함수 보기
+SELECT * FROM user_procedures WHERE OBJECT_TYPE = 'FUNCTION';
+
+-- 함수내용보기
+SELECT * FROM user_procedures, all_source WHERE OBJECT_TYPE = 'FUNCTION';
+
+
+-----------------------------------------------------------------------------------------------------------------------
+
+-- 테이블 생성
+CREATE TABLE AA_TB
+(
+    COLUMN_T1 varchar2 (10)
+);
+
+-- 테이블 커멘트 달기 및 변경
+COMMENT ON TABLE AA_TB IS '테이블 커멘트';
+
+-- 컬럼 커멘트 달기 및 변경
+COMMENT ON TABLE AA_TB.COLUMN_T1 IS '컬럼 커멘트';
+
+-- 컬럼 추가
+ALTER TABLE AA_TB ADD(COLUMN_T2 VARCHAR2(20));
+
+-- 컬럼 순서 변경
+-----.......
+
+-- 컬럼 이름 변경
+ALTER TABLE AA_TB RENAME COLUMN COLUMN_T2 TO COLUMN_T3;
+
+-- 컬럼 타입 변경
+ALTER TABLE AA_TB MODIFY (COLUMN_T3 NUMBER(5));
+
+-- 컬럼 삭제 
+ALTER TABLE AA_TB DROP(COLUMN_T3);
+
+-- 테이블 이름 변경
+RENAME AA_TB TO BB_TB;
+
+-- 테이블 삭제
+DROP TABLE BB_TB;

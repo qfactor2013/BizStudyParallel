@@ -1,0 +1,626 @@
+page 212예제 
+
+CREATE OR REPLACE PROCEDURE hire_emp
+(v_name		IN		s_emp.name%TYPE,
+v_title			IN		s_emp.title%TYPE,
+v_manager_id		IN		s_emp.manager_id%TYPE,
+v_salary		IN		s_emp.salary%TYPE)
+IS
+   v_commission_pct		s_emp.commission_pct%TYPE;
+   v_dept_id				s_emp.dept_id%TYPE;
+BEGIN
+   IF v_title LIKE '%영업%' THEN
+      v_commission_pct := 10;
+   ELSE
+      v_commission_pct := NULL;
+   END IF;
+   SELECT	dept_id
+   INTO		v_dept_id
+   FROM		s_emp
+   WHERE	id = v_manager_id;
+   INSERT INTO s_emp(id, name, title, manager_id, 
+                  start_date, salary, commission_pct, dept_id)
+   VALUES (s_emp_id.NEXTVAL, v_name, v_title, v_manager_id,
+                  SYSDATE, v_salary, v_commission_pct, v_dept_id);
+   COMMIT;
+END;
+/
+
+
+
+프로시저 실행방법 
+execute hire_emp('강경미','영업팀장',1,10000)
+
+프로시저 수행결과 확인 
+select * from s_emp where name = '강경미'
+
+
+예제1 
+
+CREATE OR REPLACE FUNCTION tax     
+(v_num in   number)              
+RETURN number 
+IS
+  v_tax      number ;             
+BEGIN
+v_tax := v_num * 0.07 ;
+  RETURN( v_tax ) ;            
+END ;
+/
+
+리턴값을 받아들이기 위한 변수 선언
+
+variable a number
+
+function 수행
+execute :a :=tax(100) 
+
+function 수행결과 확인
+print a
+
+s_emp 테이블에 tax()적용
+SELECT  name, salary , TAX(salary)
+FROM s_emp 
+/
+
+
+예제 2
+
+CREATE OR REPLACE PROCEDURE p_tax
+ ( v_num in number ,  v_tax  out   number )
+IS
+BEGIN
+ v_tax := v_num*0.07 ;
+END ;
+/
+
+variable a number
+
+PROCEDURE 수행
+execute p_tax(100,:a) 
+
+PROCEDURE 수행결과 확인
+print a
+
+
+
+예제3
+CREATE OR REPLACE PROCEDURE up_credit
+ (v_id		 IN  s_customer.id%TYPE ,
+  v_credit    	 IN  s_customer.credit_rating%TYPE )
+IS BEGIN
+   UPDATE		s_customer
+   SET			credit_rating = v_credit
+   WHERE		id = v_id ;
+COMMIT ;
+END;
+/
+
+
+EXECUTE up_credit(215,'우수')
+
+
+예제4
+
+CREATE OR REPLACE PROCEDURE del_ord
+(v_ord_id	s_item.ord_id%TYPE )
+IS
+BEGIN
+   DELETE FROM		s_item
+   WHERE		ord_id = v_ord_id;
+COMMIT ;
+END;
+/
+
+EXECUTE del_ord(100)
+
+
+예제 5
+
+CREATE OR REPLACE PROCEDURE in_emp
+(  v_name	IN	s_emp.name%TYPE ,
+   v_sal	IN	s_emp.salary%TYPE ,
+   v_title	IN	s_emp.title%TYPE )
+IS
+BEGIN
+   INSERT INTO s_emp(id, name, salary, title , start_date)
+   VALUES(s_emp_id.NEXTVAL,v_name,v_sal, v_title,SYSDATE);    
+END;
+/
+
+
+
+EXECUTE in_emp ('김희동',900,'사원' )
+
+
+
+예제 6
+
+CREATE OR REPLACE PROCEDURE show_emp
+( v_id  IN		s_emp.id%TYPE )
+IS
+  v_salary		s_emp.salary%TYPE;
+  v_start_date 		s_emp.start_date%TYPE;
+BEGIN
+  SELECT	salary, start_date
+  INTO		v_salary, v_start_date
+  FROM		s_emp
+  WHERE		id = v_id ;
+  DBMS_OUTPUT.PUT_LINE('급여:'||TO_CHAR(v_salary,'9,999,999'));
+  DBMS_OUTPUT.PUT_LINE('입사일 :'||TO_CHAR(v_start_date));
+END;
+/
+
+SET SERVEROUT ON
+
+EXECUTE show_emp(25)
+
+
+예제 7 
+
+CREATE OR REPLACE FUNCTION sum_dept
+(v_dept_id   IN 	s_emp.dept_id%TYPE )
+RETURN     s_emp.salary%TYPE 
+IS
+   v_sum_salary 	s_emp.salary%TYPE;
+BEGIN
+   SELECT		SUM(salary)
+   INTO			v_sum_salary
+   FROM		s_emp
+   WHERE		dept_id = v_dept_id;
+  RETURN(v_sum_salary ) ;
+END;
+/
+
+VARIABLE a NUMBER
+
+
+EXECUTE  :a := sum_dept(110)
+
+예제 8 
+
+CREATE OR REPLACE PROCEDURE show_dept
+ (v_id        s_dept.id%TYPE)
+IS
+  v_dept     s_dept%ROWTYPE;
+BEGIN
+   SELECT	*
+   INTO		v_dept
+   FROM	  s_dept
+   WHERE	 id = v_id;
+   DBMS_OUTPUT.PUT_LINE('부서명 : '||v_dept.name);
+   DBMS_OUTPUT.PUT_LINE('지역번호 : '||v_dept.region_id);
+END;
+/
+
+
+EXECUTE  show_dept(110)
+
+예제 9
+
+person테이블 생성 
+
+유형생성
+CREATE TYPE photo_type AS OBJECT
+ (image     BLOB);
+테이블생성
+CREATE TABLE person (
+name   VARCHAR2(10),
+resume CLOB ,
+photo   photo_type ,
+home_page   BFILE )
+
+데이터삽입
+INSERT INTO person
+VALUES('진달래','이것은 진달래의 이력서입니다.',photo_type(''),'')
+
+INSERT INTO person
+ VALUES('개나리',EMPTY_CLOB(),photo_type(''),'')
+
+INSERT INTO person
+VALUES('무궁화','이것은 무궁화의 이력서입니다
+','',BFILENAME('lob_path','homepage.html'))
+
+SELECT name , resume FROM person
+
+
+DECLARE
+    clob_data CLOB;
+    buffer VARCHAR2(32000);   
+    amount NUMBER := 20;
+    offset NUMBER := 1;   
+ BEGIN   
+      buffer := '진달래의 이력서입니다.';
+      amount := length(buffer);
+      DBMS_OUTPUT.PUT_LINE(buffer);
+      DBMS_OUTPUT.PUT_LINE(TO_CHAR(amount));
+    UPDATE person
+    SET resume = EMPTY_CLOB()
+    WHERE name = '진달래';
+    SELECT resume INTO clob_data 
+    FROM person   
+    WHERE name = '진달래' FOR UPDATE;
+      DBMS_LOB.WRITE(clob_data,amount,offset,buffer);
+    COMMIT;
+    END;
+/  
+
+
+SELECT name , resume FROM person
+
+
+DECLARE 
+    clob_data CLOB;     
+    buffer VARCHAR2(32000);   
+    amount NUMBER := 20;   
+    amount_in_buffer NUMBER;  
+    offset NUMBER := 1;   
+ BEGIN   
+   SELECT resume INTO clob_data
+   FROM person
+   WHERE name  = '무궁화';     
+   DBMS_LOB.READ(clob_data,amount,offset,buffer);     
+   amount_in_buffer := length(buffer);     
+   DBMS_OUTPUT.PUT_LINE(buffer);     
+  DBMS_OUTPUT.PUT_LINE(TO_CHAR(amount_in_buffer));   
+   COMMIT;
+   END;    
+/
+
+
+
+제어문
+
+
+예제 1 
+
+CREATE OR REPLACE Procedure in_emp
+(v_name	  IN 	s_emp.name%TYPE ,
+ v_title	  IN      s_emp.title%TYPE ,
+ v_sal  IN      s_emp.salary%TYPE )
+IS
+ v_comm	      s_emp.commission_pct%TYPE ;
+BEGIN
+   IF v_title like '%영업%'  THEN
+      v_comm := 10;
+   END IF;
+   INSERT INTO s_emp(id, name, title ,salary , commission_pct)
+   VALUES(s_emp_id.NEXTVAL, v_name, v_title,v_sal, v_comm);
+   COMMIT;
+END;
+/
+
+
+EXECUTE in_emp('박영희','영업사원',1000)
+
+
+예제 2
+
+CREATE OR REPLACE FUNCTION tax
+( v_id   IN		s_emp.id%TYPE )
+RETURN NUMBER
+IS
+   v_salary	s_emp.salary%TYPE;
+BEGIN
+   SELECT	salary
+   INTO		v_salary
+   FROM	      s_emp
+   WHERE	id = v_id;
+   IF		v_salary < 1000 THEN
+   			RETURN(v_salary*0.05 );
+   ELSIF       v_salary < 2000 THEN
+     		RETURN(v_salary*0.07 );
+   ELSIF       v_salary < 3000 THEN
+ 			RETURN(v_salary*0.09 );
+   ELSE
+			RETURN(v_salary*0.12 );
+   END IF;
+END;
+/
+VARIABLE a NUMBER
+
+EXECUTE :a := tax(1)
+
+SELECT id , name , salary , TAX(id)
+      FROM s_emp ;
+
+
+예제 3
+
+DECLARE
+   v_count	NUMBER(2) := 1;
+   v_star		VARCHAR2(10) := NULL;
+BEGIN
+   LOOP
+      v_star := v_star||'*';
+      DBMS_OUTPUT.PUT_LINE(v_star);
+      v_count := v_count + 1;
+      EXIT WHEN v_count > 10;
+   END LOOP;
+END;
+/
+
+예제 4
+
+DECLARE
+   v_star		VARCHAR2(10) := NULL;
+BEGIN
+  FOR i IN 1..10  LOOP
+      v_star := v_star||'*';
+      DBMS_OUTPUT.PUT_LINE(v_star);
+   END LOOP;
+END;
+/
+
+예제 5
+
+DECLARE
+   v_count	NUMBER(2) := 1;
+   v_star		VARCHAR2(10) := NULL;
+BEGIN
+   WHILE v_count <= 10 LOOP
+      v_star := v_star||'*';
+      DBMS_OUTPUT.PUT_LINE(v_star);
+      v_count := v_count + 1;
+   END LOOP;
+END;
+/
+
+
+Exception 
+
+예제 1
+
+CREATE OR REPLACE Procedure show_emp
+(v_salary   IN   s_emp.salary%type )
+IS
+v_name    s_emp.name%TYPE;
+v_sal        s_emp.salary%TYPE;
+v_title      s_emp.title%TYPE;
+BEGIN
+SELECT name, salary, title
+INTO v_name, v_sal , v_title
+FROM s_emp
+WHERE salary = v_salary ;
+DBMS_OUTPUT.PUT_LINE(' 이 름 '||' 급 여 '||' 직 책 '  );
+DBMS_OUTPUT.PUT_LINE('------------------------------' );
+DBMS_OUTPUT.PUT_LINE(v_name ||v_sal ||v_title);
+END;
+/
+
+EXECUTE show_emp (5000)
+
+EXECUTE show_emp (2400)
+
+
+CREATE OR REPLACE Procedure show_emp
+(v_salary   IN   s_emp.salary%type )
+IS
+v_name    s_emp.name%TYPE;
+v_sal        s_emp.salary%TYPE;
+v_title      s_emp.title%TYPE;
+BEGIN
+SELECT name, salary, title
+INTO v_name, v_sal , v_title
+FROM s_emp
+WHERE salary = v_salary ;
+DBMS_OUTPUT.PUT_LINE(' 이 름 '||' 급 여 '||' 직 책 '  );
+DBMS_OUTPUT.PUT_LINE('------------------------------' );
+DBMS_OUTPUT.PUT_LINE(v_name ||v_sal ||v_title);
+EXCEPTION
+WHEN NO_DATA_FOUND THEN
+  DBMS_OUTPUT.PUT_LINE('ERROR!!!-해당급여를 받는 사원은 없습니다.');
+WHEN TOO_MANY_ROWS THEN
+ DBMS_OUTPUT.PUT_LINE('ERROR!!!-해당급여를 받는 사원이 너무 많습니다.');
+END;
+/
+
+EXECUTE show_emp (2400)
+
+
+
+예제 2
+
+
+CREATE OR REPLACE Procedure del_product
+(  v_id	 IN     s_product.id%TYPE )
+IS
+   fk_error   	EXCEPTION;
+   PRAGMA    EXCEPTION_INIT(fk_error , -2292);
+BEGIN
+   DELETE FROM	s_product
+   WHERE		id = v_id;
+   COMMIT;
+EXCEPTION
+   WHEN fk_error THEN
+     ROLLBACK;
+     DBMS_OUTPUT.PUT_LINE('참조되는 CHILD RECORD가 있으므로 삭제할 수 없습니다.');
+END;
+/
+
+EXECUTE del_product(50530)
+
+
+예제 3
+
+CREATE OR REPLACE Procedure in_emp
+(v_name    IN    s_emp.name%TYPE ,
+ v_sal      IN    s_emp.salary%TYPE ,
+ v_title     IN    s_emp.title%TYPE ,
+ v_comm   IN    s_emp.commission_pct%TYPE )
+IS
+v_id       s_emp.id%TYPE ;
+lowsal_err   EXCEPTION ;
+BEGIN
+  SELECT MAX(id)+1
+  INTO v_id 
+  FROM s_emp ;
+ IF  v_sal  >= 600 THEN
+  INSERT INTO  s_emp
+   (id,name,salary,title,commission_pct,start_date)
+  VALUES(v_id,v_name, v_sal,v_title,v_comm,SYSDATE) ;
+ ELSE
+  RAISE  lowsal_err ;
+ END IF ;
+EXCEPTION
+WHEN lowsal_err THEN
+  DBMS_OUTPUT.PUT_LINE ('ERROR!!!-지정한 급여가 너무 적습니다.600000이상으로 다시 입력하세요.') ;
+END;
+/
+
+EXECUTE in_emp('김흥국',500,'과장',12.5)
+
+예제 4
+
+EXECUTE in_emp('이한이',1200,'사원',30)
+
+예제 5
+
+CREATE OR REPLACE Procedure in_emp
+(v_name    IN    s_emp.name%TYPE ,
+ v_sal      IN    s_emp.salary%TYPE ,
+ v_title     IN    s_emp.title%TYPE ,
+ v_comm   IN    s_emp.commission_pct%TYPE )
+IS
+v_id            s_emp.id%TYPE ;
+lowsal_err   EXCEPTION ;
+v_code         NUMBER ;
+v_message    VARCHAR2(100) ;  
+BEGIN
+  SELECT MAX(id)+1
+  INTO v_id 
+  FROM s_emp ;
+ IF  v_sal  >= 600 THEN
+  INSERT INTO  s_emp
+   (id,name,salary,title,commission_pct,start_date)
+  VALUES(v_id,v_name, v_sal,v_title,v_comm,SYSDATE) ;
+ ELSE
+  RAISE  lowsal_err ;
+ END IF ;
+EXCEPTION
+WHEN lowsal_err THEN
+  DBMS_OUTPUT.PUT_LINE ('ERROR!!!-지정한 급여가 너무 적습니다.600000이상으로 다시 입력하세요.') ;
+WHEN OTHERS THEN
+   v_code := SQLCODE ;
+   v_message := SQLERRM ;
+DBMS_OUTPUT.PUT_LINE('에러코드   =>'||v_code) ;
+DBMS_OUTPUT.PUT_LINE('에러메세지=>'||v_message) ;
+END;
+/
+
+EXECUTE in_emp('이한이',1200,'사원',30)
+
+
+
+Cursor
+
+예제 1
+
+CREATE OR REPLACE PROCEDURE del_ord
+(v_ord_id	s_item.ord_id%TYPE )
+IS BEGIN
+   DELETE FROM		s_item
+   WHERE			ord_id = v_ord_id;
+   IF SQL%FOUND	 THEN
+      DBMS_OUTPUT.PUT_LINE
+      (TO_CHAR(SQL%ROWCOUNT,'9,999')||' 개의 행이 삭제됐습니다');
+  ELSE
+      DBMS_OUTPUT.PUT_LINE('해당되는 주문번호의 주문내역이 없습니다.');
+   END IF;
+END;
+/
+
+
+EXECUTE del_ord(110)
+
+
+예제 2
+
+CREATE OR REPLACE PROCEDURE show_ordtotal
+( v_ord_id     IN		s_item.ord_id%TYPE )
+IS
+   v_product_id	      s_item.product_id%TYPE ;
+   v_item_total		NUMBER(11,2);
+   v_total			NUMBER(11,2) := 0;
+CURSOR ordtotal_cursor IS
+      SELECT	product_id, price*quantity
+      FROM		s_item
+      WHERE		ord_id = v_ord_id;
+BEGIN
+   OPEN			ordtotal_cursor;
+   LOOP
+      FETCH	ordtotal_cursor INTO 	v_product_id, v_item_total;
+      EXIT		WHEN	ordtotal_cursor%NOTFOUND;
+     DBMS_OUTPUT.PUT_LINE(TO_CHAR(v_product_id,'9999999')||
+             '   '||TO_CHAR(v_item_total,'9,999,999'));
+      v_total := v_total + v_item_total;
+   END LOOP;
+   DBMS_OUTPUT.PUT_LINE('총금액 : '||
+                              TO_CHAR(v_total,'999,999,999.99'));
+   CLOSE 		ordtotal_cursor;
+END;
+/
+
+EXECUTE show_ordtotal(109)
+
+
+예제 3
+
+CREATE OR REPLACE PROCEDURE  show_emp
+IS
+CURSOR emp_cursor IS
+SELECT name, salary , title
+FROM s_emp ;
+v_name    s_emp.name%TYPE;
+v_title    s_emp.title%TYPE;
+v_sal    s_emp.salary%TYPE;
+BEGIN
+OPEN emp_cursor;
+DBMS_OUTPUT.PUT_LINE('이 름 '||' 급 여 '||'  직 책 ');
+DBMS_OUTPUT.PUT_LINE('------------------------------');
+LOOP
+FETCH emp_cursor INTO v_name,v_sal,v_title ;
+EXIT WHEN emp_cursor%NOTFOUND ;
+DBMS_OUTPUT.PUT_LINE(v_name||' '||v_sal||' '||v_title) ;
+END LOOP;
+DBMS_OUTPUT.PUT_LINE(emp_cursor%ROWCOUNT||' 개의 행이 선택되었습니다.');
+CLOSE emp_cursor;
+END ;
+/
+
+EXECUTE show_emp
+
+예제 4
+
+CREATE OR REPLACE PROCEDURE  show_emp
+IS  CURSOR emp_cursor IS
+SELECT name, salary , title
+FROM s_emp ;
+BEGIN
+DBMS_OUTPUT.PUT_LINE('이 름 '||' 급 여 '||'  직 책 ');
+DBMS_OUTPUT.PUT_LINE('--------------------');
+FOR emp_record IN  emp_cursor LOOP
+DBMS_OUTPUT.PUT_LINE(emp_record.name||' '||emp_record.salary
+||' '||emp_record.title) ;
+END LOOP;
+/*DBMS_OUTPUT.PUT_LINE(emp_cursor%ROWCOUNT||' 개의 행이 선택되었습니다.'); CURSOR FOR LOOP는 END LOOP로 CLOSE되므로 처리 불가능*/
+END ;
+/
+
+execute show_emp
+
+CREATE OR REPLACE PROCEDURE  show_emp
+IS  
+BEGIN
+DBMS_OUTPUT.PUT_LINE('이 름 '||' 급 여 '||'  직 책 ');
+DBMS_OUTPUT.PUT_LINE('--------------------');
+FOR emp_record IN  (SELECT name, salary , title
+                      FROM s_emp  )  LOOP
+DBMS_OUTPUT.PUT_LINE(emp_record.name||' '||emp_record.salary||'
+'||emp_record.title) ;
+END LOOP;
+END ;
+/
+
+
+

@@ -1,0 +1,22 @@
+conn hr/hr // hr계정의 hr 암호로 연결한다.
+
+하지만 11g 부터 잠겨있음
+
+-> 락 해제해야함
+
+conn system/asus04   //시스템계정으로 접속
+
+show user // 현재 접속된 유저를 보여줌
+
+alter user hr identified by hr account unlock  // 비밀번호를 hr로 주고 락 해제
+
+
+conn hr/hr
+
+select * from tab   // 모든 테이블을 보여줌
+
+desc employees      // employees 테이블의 구조를 보여줌
+
+
+
+@C:\Users\AsusUser_04\Desktop\git\BizStudyParallel\DB\scott.sql    // @는 sql을 실행한다.

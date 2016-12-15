@@ -1,0 +1,137 @@
+실례1)
+
+CREATE OR REPLACE TRIGGER REFUSE_98001
+              BEFORE
+              UPDATE OR DELETE OR INSERT ON PERSONNEL
+              FOR EACH ROW
+ DECLARE
+
+             s_msg   VARCHAR2(100) := '';
+
+BEGIN
+
+             IF UPDATING THEN
+                           IF :OLD.EMPNO = '98001' THEN
+                                         s_msg := '98001 사번은 수정 할 수 없습니다.!';
+                                         raise_application_error( -20001, s_msg);
+                            END IF;
+              END IF;
+
+             IF DELETING THEN
+                           IF :OLD.EMPNO = '98001' THEN
+                                         s_msg := '98001 사번은 삭제 할 수 없습니다.!';
+                                         RAISE_APPLICATION_ERROR( -20002, s_msg);
+                            END IF;
+              END IF;
+
+             IF INSERTING THEN
+                           IF :NEW.EMPNO = '98001' THEN
+                                         s_msg := '98001 사번은 입력 할 수 없습니다.!';
+                                         raise_application_error( -20003, s_msg);
+                            END IF;
+              END IF;
+
+END;
+
+/
+
+
+SQL> INSERT INTO PERSONNEL(EMPNO, EMP_NAME) VALUES('98001', 'TRIGGER');
+
+결과)
+
+==> Insert
+
+INSERT INTO PERSONNEL(EMPNO, EMP_NAME) VALUES('98001', 'TRIGGER')
+
+            *
+
+1행에 오류:
+
+ORA-20003: 98001 사번은 입력 할 수 없습니다.!
+
+ORA-06512: "DALMA.REFUSE_98001", 줄 19에서
+
+ORA-04088: 트리거 'DALMA.REFUSE_98001'의 수행시 오류
+
+
+
+
+
+----------------------------------------------------------------------------------
+
+--부서 테이블의 부서가 업데이트되면 해당부서번호를 참조하는 사원들도 함께변경되는 트리거
+
+create or replace trigger t4
+     after update of deptno on dept
+     for each row
+ begin
+     update sawon set deptno=:new.deptno where deptno=:old.deptno;
+ end;
+ /
+
+
+
+
+----------------------------------------------------------------------------------
+--사원 테이블에서 급여가 변경되는 경우, 기존 급여보다 적게 변경되거나, 
+    20%초과하여 변경되는경우 에러를 발생시켜라.
+
+
+create or replace trigger t5
+     after update of sapay on sawon
+     for each row
+ begin
+     if (:old.sapay>:new.sapay) or (:old.sapay*1.2<:new.sapay)  then
+         raise_application_error(-20001,'변경범위가맞지않습니다');
+     end if;
+ end;
+ /
+
+----------------------------------------------------------------------------------
+
+--사원 테이블에서 급여가 변경되는 경우, 기존 급여보다 적게 변경되거나, 
+    20%초과하여 변경되는경우 에러를 발생시켜라.
+    단 사원이나 대리는 적용되게하라.....(when 절)
+
+
+create or replace trigger t5
+    after update of sapay on sawon
+     for each row
+   when (old.sajob<>'사원' or old.sajob<>'대리')
+begin
+     if (:old.sapay>:new.sapay) or (:old.sapay*1.2<:new.sapay)  then
+         raise_application_error(-20001,'변경범위가맞지않습니다');
+     end if;
+ end;
+ /
+
+----------------------------------------------------------------------------------
+
+
+
+
+# 트리거 관리
+
+
+
+1) 한테이블의 모든 트리거를 중지시키는 방법
+
+SQL> alter table table_name DISABLED all triggers;
+
+
+
+
+2) 한개 트리거만 변경 (정보 확인 후 Alter를 이용하여 Disable 시킴)
+
+SQL> select trigger_name, table_name, status from user_triggers; 
+
+TRIGGER_NAME                   TABLE_NAME                     STATUS
+ ------------------------------ ------------------------------ --------
+ T4                             DEPT                           ENABLED
+ T5                             SAWON                          ENABLED
+ T8                             LOAN                           ENABLED
+
+SQL> alter trigger t4 disable;
+
+트리거가 변경되었습니다.
