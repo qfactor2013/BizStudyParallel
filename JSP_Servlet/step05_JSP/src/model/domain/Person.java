@@ -6,6 +6,7 @@ public class Person {
 	private int age;
 	
 	public Person() {
+		System.out.println("Person 기본 생성자");
 	}
 
 	public Person(String name, int age) {
