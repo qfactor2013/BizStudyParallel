@@ -7,10 +7,10 @@
 <title>에러 처리 page</title>
 </head>
 <body>
-	<%
+	<%--
 		String message = (String) request.getAttribute("error");
-	%>
+	--%>
 	지금 발생된 error는
-	<%=message%>입니다
+	${error }입니다
 </body>
 </html>

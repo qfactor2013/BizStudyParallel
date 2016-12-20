@@ -1,12 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR" pageEncoding="EUC-KR" import="model.*" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
 <title>개인 정보 수정</title>
 <meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
 </head>
 <body>
-<%
+<%--
 	CustomerVo cvo = (CustomerVo)session.getAttribute("cvo");
 --%>
 <%-- 	<jsp:useBean id="cvo" class="model.CustomerVo" scope="request"></jsp:useBean> --%>
@@ -21,19 +21,20 @@
 		  <tr>
 			<td width=30%>사용자 아이디</td>
 			<td width=70%>	
-				<%= cvo.getId() %>
+				<%--= cvo.getId() --%>
+				${sessionScope.session.id }
 			</td>
 		  </tr>
 		  <tr>
 			<td width="30%">이름</td>
 			<td width="70%">	
-				<input type="text" name="name" value="<%= cvo.getName() %>">
+				<input type="text" name="name" value="<%--= cvo.getName() --%>${sessionScope.session.name}">
 			</td>
 		  </tr>
 		  <tr>
 			<td width="30%">비밀번호 수정</td>
 			<td width="70%">
-				<input type="password" name="password" value="<%= cvo.getPassword() %>">
+				<input type="password" name="password" value="<%--= cvo.getPassword() --%>${sessionScope.session.password}">
 			</td>
 		  </tr>			  
 		
@@ -41,7 +42,7 @@
 		
 			<td width="30%">이메일 주소</td>
 			<td width="70%">
-				<input type="text" name="email" value="<%= cvo.getEmail() %>">
+				<input type="text" name="email" value="<%--= cvo.getEmail() --%>${sessionScope.session.email}">
 			</td>		  
 		  <tr>				  
 	</table>  
@@ -51,7 +52,7 @@
 			 value값으로 설정해야 하는 값은? 
 	--%>
 	<input type="hidden" value="update"  name="command">
-	<input type="hidden" value="<%=cvo.getId() %>" name="id">
+	<input type="hidden" value="<%--=cvo.getId() --%>${sessionScope.session.id}" name="id">
 	<input type="submit" value="수정" > &nbsp;
 	<input type="reset" value="취소">&nbsp;
 	<input type="submit" value="모두보기" name="allList">
