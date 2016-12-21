@@ -33,4 +33,11 @@
     <servlet-name>come</servlet-name>
     <url-pattern>/ok</url-pattern>
   </servlet-mapping>
+  
+  <listener>
+  	<listener-class>
+  		step02.api.ServletContextTest
+  	</listener-class>
+  </listener>
+  
 </web-app>
