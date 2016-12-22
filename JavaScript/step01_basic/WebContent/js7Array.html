@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>js7Array</title>
+</head>
+<body>
+	<h2>java script 배열 학습</h2>
+	<input type="text" id="dataView" />
+	<br>
+	<button onclick="view()">데이터출력</button>
+	
+	<script type="text/javascript">
+		var arrayData = ['a', 'b', 'c', 'd'];
+		function view() {
+			var str = "";
+			for(var i = 0 ; i < arrayData.length; i++){
+				str += arrayData[i] + '-';
+			}
+			document.getElementById("dataView").value = str;
+		}
+	</script>
+</body>
+</html>

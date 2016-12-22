@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>js1Var.html</title>
+<!-- HTML 주석 -->
+<script type="text/javascript">
+	//자바 주석과 동일
+	/*자바 스크립트 블록 주석*/
+	
+	//변수 선언 - 변수 타입은 언제 설정? - 값 대입 시점에 유동적으로 지정됨(초기화시 타입지정 불필요)
+	// 문자열 대입
+	var m = "멤버 변수";
+	v = 10;
+	//알림(경고) 메세지 js 함수(팝업메세지)
+	alert(m);
+	m = 10;
+	alert(m);
+	al
+	//html tag에 js로 동적으로 데이터 처리
+	// view id는 밑에 있으므로 현재 존재하지 않아 에러 발생
+	//html tag가 read 되서 브라우저에 출력(브라우징=렌더링) 된 직 후에 가능
+	//document.getElementById("view").value=m;
+</script>
+</head>
+<body>
+	<h2>java script : js 변수</h2>
+	1. js가 작성 가능한 파일들 : html, jsp, asp, php 웹 view 처리 개발 파일 <br>
+	2. html tag에 포함
+	3. javascrpt 인터프리터가 어떻게 실행하는지? 첫라인부터 read -> 실행<br>
+	4. 브라우저 F12 버튼으로 디버깅 tool 확인 <br>
+	5. 정적 html 화면에 동적으로 js 처리하는 코드 위치<br>
+	
+	<br><hr><br>
+	<input type="text" id="view" name="viewName" />
+	<script text = "javascript">document.getElementById("view").value=m;</script>
+	
+</body>
+</html>

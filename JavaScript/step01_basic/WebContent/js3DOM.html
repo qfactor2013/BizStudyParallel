@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>js3DOM.html</title>
+<script type="text/javascript">
+	
+		function func(v) {
+			document.getElementById("two").value = v.value;
+		}
+		
+		
+	
+	</script>
+</head>
+<body>
+	<h2>동적 화면 구성을 위한 필수 학습 내용: DOM</h2>
+	<br><hr><br>
+	
+<!-- 	<input type="text" id="one" onblur=func(this)><br> -->
+	<input type="text" id="one" onblur=change()><br>
+	<input type="text" id="two">
+	<div id = "divView"></div>
+	
+	<br><hr><br>
+	<button onclick="divView()">div에 data 출력</button>
+	<div id="divView2"></div><br>
+	<div id="divView3"></div><br>
+	
+	<script type="text/javascript">
+	
+	function divView() {
+		document.getElementById("divView2").innerText
+		= "<font color = 'red'> 데이터</font>";
+		document.getElementById("divView3").innerHTML
+		= "<font color = 'blue'> 데이터</font>";
+	}
+	
+	
+	function change(){
+		//step02 - div tag로 출력
+		document.getElementById("divView").innerText = document.getElementById("one").value;
+	}
+	</script>
+	<!-- 1. one에 입력한 데이터를 포커스가 이동 시 two에 자동 출력 -->
+</body>
+</html>
