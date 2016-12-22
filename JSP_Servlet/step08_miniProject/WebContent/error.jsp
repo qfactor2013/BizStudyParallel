@@ -8,6 +8,8 @@
 </head>
 <body>
 	죄송합니다. 문제가 발생하였습니다.<br>
+	<br><hr><br>
+	${requestScope.error }
 	<a href="guestbook.do"> 리스트로 돌아가기</a>
 </body>
 </html>

@@ -3,6 +3,7 @@
 <%@ page import="guestbook.model.GuestBookBean" %> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<!-- null, length 체크를 위한 jstl function 사용 -->
 <%--
  	GuestBookBean [] list=(GuestBookBean[])request.getAttribute("list");
  --%>
@@ -28,13 +29,20 @@
 <%--
 	if(list==null || list.length==0){
 --%>
-	<c:choose><c:when test="${requestScope.list == null || fn:length(requestScope.list) == 0 }">
-	<tr>
-        <td colspan="5">
-            <p align="center"><b><span style="font-size:9pt;">등록된 방명록이 없습니다.</span></b></p>
-        </td>
-    </tr>
-    </c:when>
+	<c:choose>
+<%-- 		<c:when test="${requestScope.list == null || fn:length(requestScope.list) == 0 }"> --%>
+		<%-- DB로 부터 검색된 데이터가 ArrayList에 저장 -> request저장
+    		데이터 존재 유무는 ArrayList 내부에 GuestBookBean 객체 존재 유무 확인 코드
+    		requestScop.list와  list 동일한 코드
+    		empty list 코드 : list가 null인 경우 true반환 --%>
+
+			<c:when test="${empty list || fn:length(list) == 0 }" >
+			<tr>
+		        <td colspan="5">
+		            <p align="center"><b><span style="font-size:9pt;">등록된 방명록이 없습니다.</span></b></p>
+		        </td>
+		    </tr>
+   		 </c:when>
 <%--
 	}else{
 		GuestBookBean gBookContent = null;
@@ -42,6 +50,7 @@
 			 gBookContent = list[i];
 --%>
 		<c:otherwise>
+		<!--  ArrayList에 GuestBookBean 객체를 하나하나 data 라는 변수에 반복 대입해서 사용 -->
 			<c:forEach items="${requestScope.list }" var="data">
 		    <tr>
 		        <td bgcolor="">

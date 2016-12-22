@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>step08_miniProject</display-name>
+
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+	<servlet>
+		<servlet-name>GuestBookServlet</servlet-name>
+		<servlet-class>guestbook.controller.GuestBookServlet</servlet-class>
+	</servlet>
+	<!-- web의 mvc pattern이 반영된 struts라는 framework에서 사용했던 url 표기
+			*.do 즉 마치 확장자가 있는것과 같은 url구성  -->
+	<servlet-mapping>
+		<servlet-name>GuestBookServlet</servlet-name>
+		<url-pattern>/guestbook.do</url-pattern>
+	</servlet-mapping>
+
+</web-app>

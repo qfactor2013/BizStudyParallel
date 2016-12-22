@@ -155,12 +155,10 @@ public class GuestBookDAO {
 		Connection con = null;	
 		PreparedStatement pstmt = null;
 		boolean result = false;
-		
-		String sql="UPDATE gbook set title=?,author=?,email=?,content=? WHERE num=? AND password=?";
-		
+				
 		try {
 			con = DBUtil.getConnection();
-			pstmt = con.prepareStatement(sql);
+			pstmt = con.prepareStatement("UPDATE gbook set title=?,author=?,email=?,content=? WHERE num=? AND password=?");
 
 			pstmt.setString(1,vo.getTitle());
 		    pstmt.setString(2,vo.getAuthor());
@@ -168,7 +166,6 @@ public class GuestBookDAO {
 		    pstmt.setString(4, vo.getContent());
 		    pstmt.setInt(5, vo.getNum());
 		    pstmt.setString(6, vo.getPassword());
-			pstmt.executeUpdate();
 
 			int count = pstmt.executeUpdate();
 			
@@ -189,12 +186,12 @@ public class GuestBookDAO {
 	}
 	
 	// 모든 게시물 조회
-	public  static GuestBookBean[] getAllContents() throws SQLException{
+	public  static ArrayList<GuestBookBean> getAllContents() throws SQLException{
 		Connection con = null;	
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		GuestBookBean[] list  = null;
-		ArrayList alist = new ArrayList();
+//		GuestBookBean[] list  = null; //굳이 배열로 할 필요가 없으므로
+		ArrayList<GuestBookBean> alist = null;
 		
 		String sql="SELECT num,title,author,email,content,password," +
 				"to_char(writeday,'yyyy/mm/dd hh24:mi:ss')," +
@@ -203,16 +200,17 @@ public class GuestBookDAO {
 		try {
 			con = DBUtil.getConnection();
 			pstmt = con.prepareStatement(sql);
-			
 			rset = pstmt.executeQuery();
+			alist = new ArrayList<>();
+			
 			while(rset.next()){
 			
-				alist.add(	new GuestBookBean(rset.getInt(1),rset.getString(2),
-						rset.getString(3),rset.getString(4).replaceAll("</n>", "</b>"),rset.getString(5)
+				alist.add(new GuestBookBean(rset.getInt(1),rset.getString(2),
+						rset.getString(3),rset.getString(4),rset.getString(5)
 		 				,rset.getString(6),rset.getString(7),rset.getInt(8)));
 			}
-			list = new GuestBookBean[alist.size()];
-			alist.toArray(list);
+//			list = new GuestBookBean[alist.size()];
+//			alist.toArray(list); // 굳이 배열로 할 필요가 없으므로
 			
 		} 
 		// catch로 처리하기 보단 던져서 다른데서 처리한다.
@@ -222,7 +220,7 @@ public class GuestBookDAO {
 		finally{
 			DBUtil.close(rset, pstmt, con);
 		}
-		return list;
+		return alist;
 	}
 	
 //  DBUtil.close 메소드들도 DBUtil로 따로 뺌

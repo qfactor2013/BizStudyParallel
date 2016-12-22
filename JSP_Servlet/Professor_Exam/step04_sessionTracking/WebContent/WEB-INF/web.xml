@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>step04_sessionTracking</display-name>
+  
+  <!--  login.html 입력없이 url에 요청시 자동 실행되는 main 화면
+	  http://ip:port/step04_sessionTracking/login.html
+	  http://ip:port/step04_sessionTracking
+   -->
+  <welcome-file-list>
+    <welcome-file>login.html</welcome-file>
+  </welcome-file-list>
+  
+  <!-- 실제 실행되는 servlet과 보안을 고려한 가상의 url 매핑 설정 -->
+  <servlet>
+    <servlet-name>Cookie1Save</servlet-name>
+    <servlet-class>step01.cookie.Cookie1Save</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Cookie1Save</servlet-name>
+    <url-pattern>/cookieTest</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>Cookie2Use</servlet-name>
+    <servlet-class>step01.cookie.Cookie2Use</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Cookie2Use</servlet-name>
+    <url-pattern>/cookieUse</url-pattern>
+  </servlet-mapping>
+  
+  <!--  ********** 추가 부분 ******************** -->
+  <servlet>
+    <servlet-name>s1</servlet-name>
+    <servlet-class>step02.session.Session1Save</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>s1</servlet-name>
+    <url-pattern>/sessionTest</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>s2</servlet-name>
+    <servlet-class>step02.session.Session2Use</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>s2</servlet-name>
+    <url-pattern>/sessionUse</url-pattern>
+  </servlet-mapping>
+  
+</web-app>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

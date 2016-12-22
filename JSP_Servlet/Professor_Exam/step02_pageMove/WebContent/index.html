@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>index.html</title>
+</head>
+<body>
+
+	<h2>web page 이동 개발 방식</h2>
+	<hr>
+	
+	1. html 링크 : get방식<br>
+	<a href="http://www.daum.net" target="blank">다음</a>
+	
+	<br><hr><br>
+	2. html 버튼 클릭 : get방식<br>
+	<button onclick="location.href='http://www.daum.net'">이동</button>
+	<!-- form의 submit input 버튼도 html 버튼을 통한 이동 방식 -->
+	
+	
+	<br><hr color="blue"><br>
+	
+	3. servlet api를 활용한 forword[디스페처] 방식<br>
+	소스간 이동 : index.html : 링크 -> Page1Servlet 요청 : forword 방식 -> Page2Servlet 요청<br>
+	<a href="page1">servlet 호출</a><br>
+	<!-- http://ip:port/project/page1 호출과 동일한 설정 -->
+	<form action="page1" method="post">
+		<input type="submit" value="post요청">
+	</form>
+	
+	
+	<br><hr><br>
+	4. servlet api를 활용해서 redirect 방식<br>
+	<a href="page3">servlet 호출</a><br>
+	<form action="page3" method="post">
+		<input type="submit" value="post요청">
+	</form>
+	
+</body>
+</html>
+
+
+
+
+
+
+
+

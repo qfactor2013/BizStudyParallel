@@ -1,8 +1,10 @@
 <%@ page info="게시판 수정하기" contentType="text/html;charset=euc-kr" %>
 <!--<jsp:useBean id="resultContent" class="guestbook.model.GuestBookBean" scope="request" /><!-->
 <HTML>
-<HEAD>
-</HEAD>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+ 
+<html>
+<head>
 
 <BODY>
 

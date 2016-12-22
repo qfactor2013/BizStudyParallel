@@ -1,6 +1,28 @@
+/*
+ * 1. table과 1:1 매핑되는 entity 관련 class
+ * 2. 구조 
+ * 		table 컬럼 수와 타입에 맞게 변수 선언
+ * 		기본 생성자
+ * 		멤버 변수 초기화 생성자
+ * 		set/getXXX()
+ * 		toString Override
+ * 		equals() Override
+ * 3. java beans = Data Transfer Object[DTO] = Value Object[VO]
+ */
+
 package guestbook.model;
 
-import java.io.*;
+import java.io.Serializable;
+
+// 모두 임포트 하면 메모리 사용 올라감
+//import java.io.*;
+
+/*
+ * 네트워크상에서 자바 객체를 byte 단위로 분해해서 데이터 손실없이
+ * 입출력 할 때 권장
+ * Serializable interface 따라서 보유한 모든 메소드 재정의가 필수
+ * 마킹 interface 즉 재정의 할 메소드 없음
+ */
 
 public class GuestBookBean implements Serializable{
 	private int num;						// 글 번호
