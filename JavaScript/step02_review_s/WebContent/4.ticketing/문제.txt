@@ -1,0 +1,11 @@
+문제
+
+1. movieCheck1.html 단점 찾기
+	- 소스 분석
+	- 논리 적인 실행 오류 찾기
+	
+2. movieCheck1.html의 단점 해결해서 movieCheck2.html 마무리
+	- 1+2 : 혼자 영화보기
+
+3. movieCheck3.html 완성하기
+	- 3사람이 함께 영화 보기

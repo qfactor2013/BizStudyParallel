@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <title>Donuts</title>
+	
+	<!-- html : 구조/css : 디자이너격/js : 동적화면 구성 -->
+	<!-- 외부 css 파일을 현 html에 적용하는 설정 코드 -->	
+    <link rel="stylesheet" type="text/css" href="donuts.css" />
+  
+    <script type="text/javascript">
+   
+		function updateOrder() {    
+			var TAXRATE = 0.1;//부가세
+			var DONUTPRICE = 500;//도넛가격
+			
+			//parseInt() : 정수로 변환시키는 함수 
+			var numCakeDonuts 
+			= parseInt(document.getElementById("cake").value);			
+			var numGlazedDonuts 
+			= parseInt(document.getElementById("donuts").value);
+			
+			//??? data가 숫자가 아니 경우 0으로 초기화
+
+			if(isNaN(numCakeDonuts)){
+				numCakeDonuts = 0;
+			}
+			if(isNaN(numGlazedDonuts)){
+				numGlazedDonuts = 0;
+			}
+					
+			//??? 총 구매금액, 총 부가세, 구매금액+부가세 계산하기
+			
+			var totalCakeDonutsPrice = 	numCakeDonuts*500;
+			var totalVATCakeDonutsPrice = totalCakeDonutsPrice * 0.1;
+			
+			var totalGlazedDonutsPrice = numGlazedDonuts  *  500;
+			var totalVATGlazedDonutsPrice = totalGlazedDonutsPrice * 0.1;
+			
+			
+			var subtotal   = totalCakeDonutsPrice + totalGlazedDonutsPrice;
+			document.getElementById("subtotal").value = subtotal;
+			
+			var tax 	   = totalVATCakeDonutsPrice + totalVATGlazedDonutsPrice;
+			document.getElementById("tax").value = tax;
+			
+			var totalPrice =  subtotal + tax;
+			document.getElementById("total").value = totalPrice;
+			
+					
+		}//end of updateOrder()
+    </script> 
+  </head>
+
+  <body>
+    <div id="frame">
+
+      <div class="heading">도너츠 판매합니다</div>
+      <div class="subheading">전 제품은 각 500원 입니다, 구매 수량 입력하세요</div>
+
+      <div id="left">
+        <img src="donuttime.png" />
+      </div>
+
+      <form name="orderform" action="#" method="POST">
+  							<!-- 	재귀호출 -->
+        <div class="field">
+			케잌 : <input type="text" id="cake" 
+								name="cake" value="" 
+								onchange="updateOrder();" />&nbsp;개
+        </div>
+
+        <div class="field">
+			도너츠 : <input type="text" id="donuts" 
+									name="donuts" value="" 
+									onchange="updateOrder();" />&nbsp;개
+        </div>       
+
+        <div class="field">
+			주문개수 금액 : <input type="text" id="subtotal" name="subtotal" value="" readonly="readonly" />&nbsp;원
+        </div>
+
+        <div class="field">
+			부가세 <input type="text" id="tax" name="tax" value="" readonly="readonly" />&nbsp;원
+        </div>
+
+        <div class="field">
+			Total: <input type="text" id="total" name="total" value="" readonly="readonly" />&nbsp;원
+        </div>
+
+        <div class="field">
+			<input type="button" value="주문" onclick="alert('주문되었습니다')" />
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
