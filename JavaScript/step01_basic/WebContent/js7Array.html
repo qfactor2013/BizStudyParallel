@@ -2,23 +2,28 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>js7Array</title>
+<title>js7Array.html</title>
 </head>
 <body>
 	<h2>java script 배열 학습</h2>
-	<input type="text" id="dataView" />
+	<input type="text" id="dataView">
 	<br>
-	<button onclick="view()">데이터출력</button>
+	<button onclick="view()">데이터 출력</button>
 	
-	<script type="text/javascript">
+	<script>
+		//js 배열
 		var arrayData = ['a', 'b', 'c', 'd'];
-		function view() {
-			var str = "";
-			for(var i = 0 ; i < arrayData.length; i++){
-				str += arrayData[i] + '-';
+		function view(){
+			//? a-b-c-d- 이렇게 출력될수 있도록 함수 완성하기
+			var data = "";
+			for(i=0; i < arrayData.length; i++){
+				data = data+arrayData[i] + "-";//""a- -> ""a-b- -> ""a-b-c-
 			}
-			document.getElementById("dataView").value = str;
+			document.getElementById("dataView").value = data;
 		}
+		
 	</script>
+	
+
 </body>
 </html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>영화관 좌석예매</title>
+</head>
+
+<body onload="initSeats();">
+
+	<h2>
+		<font color="red">예약 가능한 좌석 : 빨간색</font><br> <font color="grey">예약
+			불가능인 좌석 : 회색</font><br> <font color="green">선택(예약)한 좌석 : 초록색</font>
+	</h2>
+
+	<hr>
+	<h3>*** 혼자만 보는 영화 예약하기 ***</h3>
+	<hr>
+
+	<div style="margin-top: 75px; text-align: center">
+		1 <img id="seat0" src="" /> 
+		2 <img id="seat1" src="" /> 
+		3 <img 	id="seat2" src="" /> 
+		4 <img id="seat3" src="" /> 
+		5 <img id="seat4" src="" /> 
+		6 <img id="seat5" src="" /> 
+		7 <img id="seat6" src="" />
+		8 <img id="seat7" src="" /> 
+		9 <img id="seat8" src="" /><br>
+	</div>
+	<hr>
+	<hr>
+	<input type="button" id="findseat" value="좌석예매하기" onclick="findSeat();" />
+
+	<script type="text/javascript">
+  
+     	var seats = [ false, true, false,
+                   	   		true, true, true, 
+                   	  	 	false, true, false ];
+
+   
+		function initSeats() {
+			for (var i = 0; i < seats.length; i++) {
+				if (seats[i]) {
+					document.getElementById("seat" + i).src = "seat_avail.png";
+				} else {
+					document.getElementById("seat" + i).src = "seat_unavail.png";
+				}
+			}
+		}
+	
+		function findSeat() {
+			initSeats();
+			for (var i = 0; i < seats.length; i++) {
+				if (seats[i]) {
+					document.getElementById("seat" + i).src = "seat_select.png";//초록색
+	
+					var accept = confirm("현 좌석 " + (i + 1) + "는 이용 가능합니다. 예약 하시겠습니까?");
+	
+					if (!accept) {
+						document.getElementById("seat" + i).src = "seat_avail.png";//red 색          
+					}
+				}
+			}
+		}
+	</script>
+
+</body>
+</html>

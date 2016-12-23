@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>js2Array.html</title>
+</head>
+<body>
+	<h2>js의 배열 생성 및 활용 문법</h2>
+	<br><hr><br>
+	1. js에서  js 객체 생성시 부모 객체자동 생성<br>
+	2. prototype 타입이라 표현: 크롬에선 _proto_로 표현<br>
+	3. 부모가 사용 가능하게 제공해주는 함수들 다수 존재<br>
+	
+	
+	<script type="text/javascript">
+		var array1 = Array();		
+		//10개 메모리 사이즈로 생성시킨 배열
+		var array2 = Array(10); 
+		//값, 값, ... 이 표기는 데이터값 의미 
+		var array3 = Array(10, 20, 30);
+		
+		console.log(array1);
+		console.log(array2);
+		console.log(array3);
+		
+		console.log(array1 + " --- " + array1.length);
+		console.log(array2 + " --- " + array2.length);
+		console.log(array3 + " --- " + array3.length);
+		
+		//빈 배열 생성
+		var emptyArr = [];
+		console.log(emptyArr.length);//0
+		emptyArr[0] = 100;
+		emptyArr[3] = '문자열';
+		emptyArr[15] = true;//0~15까지의 index...16개의 메모리
+		console.log(emptyArr.length);//16
+		
+		//[]이용한 배열 생성
+		var array4 = ["one", "two", "three"];
+		console.log(array4);
+		console.log(array4.length);
+		//부모 객체인 prototype이 제공하는 함수 사용
+		array4.push("four");//배열의 가장 마지막에 데이터 저장
+		console.log(array4);
+		console.log(array4.length);
+		
+		console.log(array4[1]);//two
+		//배열 객체에 color이라는 property 동적으로 생성 및 초기화
+		array4.color = "red";
+		console.log(array4.color);//red
+		
+		//? 삭제 -> 확인
+		console.log("---- 1. 배열 특정 index 삭제 로직 학습 ----")
+		console.log(array4);//["one", "two", "three", "four", color: "red"]
+		console.log("개수 " + array4.length);//?
+				
+		delete array4[1];
+		console.log(array4[1]);//undefined
+		
+		console.log(array4);//["one", 2: "three", 3: "four", color: "red"]
+		console.log("개수 " + array4.length);//?
+		
+		
+		console.log("---- 2. 배열 color 삭제 로직 학습 ----");
+		console.log(array4);
+		console.log("개수 " + array4.length);//
+				
+		delete array4.color;
+		console.log(array4.color);
+		
+		console.log(array4);//
+		console.log("개수 " + array4.length);//?
+		
+		console.log("---- 3. 부모가 제공한 함수 사용 ----");
+		var arr5 = ["a", "b", "c", "d", "e"];
+		console.log(arr5.length);//5
+		console.log(arr5);//["a", "b", "c", "d", "e"]
+		arr5.splice(2, 2);//배열의 index가 2부터 2개의 데이터 삭제, length도 줄어듬
+		console.log(arr5);//["a", "b", "e"]
+		console.log(arr5.length);//3
+				
+	</script>
+</body>
+</html>
+
+
+
+

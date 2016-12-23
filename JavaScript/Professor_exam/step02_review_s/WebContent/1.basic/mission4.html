@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+	<title>DOM을 사용한 문서 변경 예제</title>
+	
+	<script type="text/javascript">
+	
+	var count = 0;
+
+	function appendItem() {
+		count++;
+		var newItem = document.createElement("div");
+		newItem.setAttribute("id", "item_" + count);
+		var add= '새로 추가된 아이템[' + count +']' + '<input type="button" value="삭제" onclick="removeItem(' + count + ')"/>';
+		newItem.innerHTML = add;		
+		var itemListNode = document.getElementById('itemList');
+		itemListNode.appendChild(newItem);
+	}
+
+	//?삭제 버튼 클릭 로직으로 완성하기
+	function removeItem(idCount) {
+
+	
+	}
+	
+	</script>
+</head>
+<body>
+<input type='button' value='추가' onclick='appendItem()' />
+<div id="itemList"></div>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>js3Function.html</title>
+</head>
+<body>
+	<h2>js 함수 구현 및 호출 문법</h2>
+	1. 함수 선언문 형식으로 함수 생성<br>
+	2. 함수 표현식 방식으로 함수 생성<br>
+	3. 함수 특징 : 모든 함수에는 arguements 가 자동 생성<br>
+			lenght로 인자 개수 확인 가능<br>
+	<br><hr><br>
+	<script type="text/javascript">
+		//함수 선언문 형식의 문법
+		function add(x, y){
+			return x+y;
+		}
+		console.log(add());//NaN - Not a Number
+		console.log(add(2));//NaN
+		console.log(add(2, 3));//5
+		console.log(add(2, "3"));//23
+		console.log(add(2, 5, 6));//7
+		
+		console.log("-----------------");
+		
+		//함수 표현식 문법
+		//일반 변수에 이름 없는 익명를 등록해서 개발, 호출시에서 변수명([..]);
+		var add2 = function(x, y){
+			return x+y;	
+		}
+		console.log(add2());//NaN - Not a Number
+		console.log(add2(2));//NaN
+		console.log(add2(2, 3));//5
+		console.log(add2(2, "3"));//23
+		console.log(add2(2, 5, 6));//7
+		
+		console.log("-----------------");
+		var data = add2;
+		console.log(data());//NaN - Not a Number
+		console.log(data(2));//NaN
+		console.log(data(2, 3));//5
+		console.log(data(2, "3"));//23
+		console.log(data(2, 5, 6));//7
+		
+		
+		console.log("------- step02 : 동적으로 property 추가 ----------");
+		function fun1(x, y){
+			return x.y;
+		}
+		//이미 구현된 함수에 property 선언 및 초기화
+		fun1.result = 10;
+		fun1.status = "ok";
+		console.log(fun1.result);//10
+		console.log(fun1.status);//ok
+		
+		console.log("------- step03 :  property에 함수 할당 ----------");
+		var obj = {};//객체 리터럴 방식으로 생성 
+		//이미 생성된 객체에 property 등록 형식으로 익명 함수 등록
+		//호출시 property([..]);
+		obj.fun = function(){
+			return 200;
+		}
+		console.log(obj.fun());//200
+		console.log(obj.fun);//함수 문법이 문자열로 출력
+		
+		
+		
+		console.log("------- step04 :  함수 내부에 자동 생성되는 속성 ----------");
+		var obj = {};//객체 리터럴 방식으로 생성 
+		obj.fun = function(){
+			console.log("1 " + arguments);//객체
+			console.log("2 " + arguments.length)//인자값 확인속성;
+			return 200;
+		}
+		console.log(obj.fun());
+		console.log(obj.fun(1));//length 1
+		console.log(obj.fun(2, 3));//length 2
+		console.log(obj.fun(3, 4, 5));//length 3
+		
+		console.log(obj.fun);
+		
+		
+	</script>
+	
+</body>
+</html>
+

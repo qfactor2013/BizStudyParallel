@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>js3DOM.html</title>
+</head>
+<body>
+	<h2>동적 화면 구성을 위한 필수 학습 내용 : DOM</h2>
+	<br><hr><br>
+	
+	<input type="text" id="one" onblur="change()"><br>
+	<input type="text" id="two"><br>
+	<div id="divView"></div><br>
+	
+	<br><hr><br>
+	<button onclick="divView()">div에 data 출력</button>
+	<div id="divView2"></div><br>
+	<div id="divView3"></div><br>
+		
+	<script>
+		function divView(){
+			//대입되는 데이터를 순수 문자열로 간주
+			document.getElementById("divView2").innerText 
+			= "<font color='red'>데이터</font>";
+			
+			//대입되는 데이터 구조에 html tag 형식이 있다면 tag로 처리
+			document.getElementById("divView3").innerHTML 
+			= "<font color='red'>데이터</font>";
+		}
+		function change(){
+			//step02 - div tag로 출력
+			document.getElementById("divView").innerText
+			= document.getElementById("one").value;
+			
+			//step01 - two input tag로 출력
+			/* document.getElementById("two").value 
+			= document.getElementById("one").value; */
+		}
+	</script>
+</body>
+</html>
+
+<!-- 
+학습내용
+1. div tag에 동적 데이터 또는 동적 HTML 구조를 반영시
+	1. text : innerText
+	2. html : innerHTML
+	3. value 속성 사용 금지
+ -->
+
+
+

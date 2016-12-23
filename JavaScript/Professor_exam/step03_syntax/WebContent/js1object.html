@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>js1object.html</title>
+</head>
+<body>
+	<h2>js 객체 생성 및 활용</h2>
+	1. js 는 객체 기반 언어<br>
+	2. java는 class 개발 -> instance화 -> 객체 생성<br>
+	3. js는 class가 없이 객체 생성 및 활용 가능 : 객체 기반 언어<br>
+	4. 객체 생성 <br>
+		4-1. Object()<br>
+		4-2. 리터럴 생성<br>
+		4-3. 생성자 함수<br>
+	5. js 데이터 타입 : 기본(5가지 : undefined, null, boolean, string, number), 객체타입
+	<br><hr><br>
+	<script type="text/javascript">
+		console.log("------1. 객체 생성 : Object() 객체 생성자 활용 ----");
+		//foo 라는 객체 생성
+		var foo = new Object();
+		
+		//property(java관점 : 변수) 선언 및 초기화
+		foo.name = "문제아";
+		foo.age = 56;
+		foo.gender = "man";
+		
+		//타입 비교 js 연산자
+		console.log(typeof foo);
+		//property값 출력
+		console.log(foo.name);
+		
+		console.log("------2. 객체 생성 :객체 리터럴 방식 : {} 활용 ----");
+		var foo2 = {
+			name : '신동엽',
+			age : 40,
+			info : function(){
+						return "함수 추가 구현 문법";
+					  }
+		};
+		//? name..info
+		console.log("1 - " + foo2.name);
+		console.log("2 - " + foo2.info);
+		// info라는 변수에 대입된 함수 실제 호출 명령어, () 생략시 함수 문법이 문자열로 출력
+		console.log("3 - " + foo2.info());//실행후 결과값 반환
+		
+		//새로운 property 생성
+		foo2.gender = "m";
+		console.log("4 - " + foo2.gender);//m
+		//존재하는 property 삭제
+		delete foo2.gender;
+		console.log("5 - " + foo2.gender);//5 - undefined
+		
+		//모든 property 반복문으로 출력
+		console.log("------3. for in 반복문 활용해서 객체의 property값 출력해 보기 ----");
+		/* 객체의 property값들은 for in 반복문 사용시 
+		[](브레킷 연산자) 표기로 객체명.property 명으로 호출하셔 활용
+		.(도드 연산자)로 호출시 property value값 활용 불가
+		*/
+		var data;
+		for(data in foo2){
+			console.log(data, foo2[data]);
+		}
+		console.log("----값들이 모두 undefined값으로 반환----")
+		for(data in foo2){
+			console.log(data, foo2.data);//name undefined
+		}
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+

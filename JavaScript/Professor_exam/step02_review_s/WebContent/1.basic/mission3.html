@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>html tag의 tree 구조 dom parsing으로 이해하고 분석하기</title>
+
+<script>
+  function guess() {
+	   var whatPet;
+	   var element = document.documentElement.lastChild;
+	   alert("document의 마지막 자식의 nodeName? " + element.nodeName);
+
+	   var anotherElement = document.getElementsByTagName("h1")[0];
+	   alert("h1 tag의 첫번째 tag의 nodeValue 값은? " + anotherElement.nodeValue);<!-- tag 자체의 nodeValue = null -->
+
+	   var child = anotherElement.firstChild;
+	   alert("h1 tag의 첫번째 tag의 firstChild의 nodeValue는? " + child.nodeValue);
+
+	   element = document.getElementById("cat").lastChild;
+	   alert("cat id값을 보유한 tag의 nodeValue는? " + element.nodeValue);
+	   alert("부모 tag의 id 속성 value는? " + element.parentNode.getAttributeNode("id").nodeValue);
+  }
+  </script>
+</head>
+
+<body>
+	<h1>애완 동물 이야기</h1>
+	<div id="message">
+		내 애완 동물을 강아지야 너의 애완 동물은 <span id="cat"> 고양이 </span> 였으면 좋겠어.
+	</div>
+
+	<form>
+		<input type="button" value="애완동물은?" onClick="guess();" />
+	</form>
+</body>
+</html>
+
+<!-- 
+1. html 문서의 tree 구조 이해 예제(dom parsing)
+2. 용어 정리 
+	a. tag(element) = element node
+    b. text = text node
+	c. attribute = attribute node
+-->

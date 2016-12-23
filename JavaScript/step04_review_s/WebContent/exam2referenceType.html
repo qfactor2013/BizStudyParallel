@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+
+	<h2>객체 타입</h2>
+	기본 타입은 하나의 값만을 보유 할 수 있으나,
+	참조(객체) 타입은 여러개의 property[속성, 변수, 데이터]들을 포함 할 수 있음<br><br>
+
+	1. 객채 생성 방법<br>
+		1.1 Object 생성자<br>
+		1.2 객체 리터럴 방식<br><br>
+
+	2. 객체 property 읽기/쓰기/갱신<br>
+
+	<script>
+		//1. 객체 생성
+		console.log("---1. 객체 생성 : Object() 생성자 or 객체 리터럴 방식 ---");
+
+		//1.1 Object() 생성자 방식으로 객체 생성
+		//???  객체 생성 후 name과 age property 추가 및 초기화 하기
+
+		var obj1 = Object();
+		obj1.color = 'blue';
+		obj1.name = 'obj2';
+		obj1.boom = null;
+
+		console.log(obj1);
+
+
+		//1.2 객체 리터털 방식으로 객체 생성
+		// ??? 객체 리터럴 방식으로 foo 객체 생성 하고, info 함수 구현하기
+
+		var foo = {
+			major : 'java',
+			info : function() {
+				return "info 속성 함수다";
+			}
+		};
+
+		console.log(foo);
+
+
+
+		console.log(foo.info());
+
+		//2. for in 문과 객체 property 출력
+		//???  foo 객체의 property와 value값 출력하기
+		console.log("\n---2. for in 문과 객체 property 출력 ---");
+
+		for (var data in foo) {
+			console.log(data, foo[data]);
+		}
+
+
+		//3. foo 객체의 name property 삭제
+		console.log("\n---3. 객체 property 삭제 : delete ---");
+		console.log("삭제전 데이터 " + foo.major);//computer science
+
+		delete foo.major
+
+		console.log("major property 삭제 후 console에 출력 : " + foo.major);//undefined
+
+	</script>
+
+</body>
+</html>

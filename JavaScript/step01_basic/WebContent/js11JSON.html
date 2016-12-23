@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>js11JSON</title>
+</head>
+<body>
+  <h2>JSON학습</h2>
+  <br><hr><br>
+
+  <script type="text/javascript">
+
+    // 객체 생성 후 property 값 활용
+    var obj = {
+      name : "김유정",
+      age  : 18
+    };
+    console.log(obj.name);
+
+    //data변수는 순수 문자열 객체
+    var data = "{name : '김유정', age : 18}";
+    //순수문자열을 JSON 객체로 변환
+    data = eval("("+data+")");
+    console.log(data.name);
+
+    //step03 : 순수 JS 객체를 순수문자열로 변환
+    var obj = {
+      name : "김유정",
+      age : 18
+    };
+
+    obj = JSON.stringify(obj); //문자열로 변환
+    console.log(obj.name);
+    console.log(obj);
+
+    //step04 : JSON.parse() : 순수 문자열을 JSON 객체로 변환
+    obj = JSON.parse(obj);
+    console.log(obj.name);
+
+    //step05 주의 사항 - JSON.parse는 key value는 "" 로만 구분 가능하다.
+    var data2 = "{name : '김유정', age : 18}";   // X
+    var data3 = "{'name' : '김유정', 'age' : 18}";  // X
+    var data4 = '{"name" : "김유정", "age" : 18}';   // O
+
+    var parseJSON = JSON.parse(data4);
+    console.log(parseJSON.name);
+
+  </script>
+</body>
+</html>

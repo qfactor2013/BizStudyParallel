@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>js2Var.html</title>
+	<script type="text/javascript">
+		var data = "멤버 변수";
+		
+		//사용자 정의 js 함수
+		//함수 호출 해야만 실행
+		function myFun(){
+			data2 = "멤버 변수2";
+			var data3 = "로컬 변수3";
+			
+			//docunment 하위 즉 html 하위에 view라는 id값의 tag(객체) 의 value값을 수정
+			document.getElementById("view").value = data;
+		}	
+		function myFun2(){
+			alert(data);
+			alert(data2);
+			alert(data3);// 오류 왜? data3은 myFun() 만의 로컬 변수 따라서 다른 함수에서 사용 불가
+		}
+		
+		//함수 호출시 데이터값을 주면서 호출
+		function myFun3(v){
+			document.write("<br>" + v);
+			document.write("<br> : 매개 인자 개수 " + arguments.length);
+		}
+		
+		//client가 입력한 데이터를 브라우저에 출력 
+		function myFun4(v){
+			document.write("<br> client가 입력 폼에 입력했던 데이터 값 - " + v);
+		}
+		
+		function myFun5(v){
+			document.write("<br> client가 입력 폼에 입력했던 데이터 값 - " + v.value);
+		}
+	</script>
+
+</head>
+<body>
+	<!-- 입력후 포커스 이동시 자동으로 myFun4() 호출되겠금 처리 
+		this.value
+		- this : onblur는 포커스 이동 감지 속성(이벤트 핸들러 속성)
+				 : 이벤트가 발생된 tag 객체를 의미하는 속성
+		- value : 이벤트가 발생된 tag 객체의 value 속성값 
+	-->
+	<input type="text" id="view" name="viewName" onblur="myFun4(this.value)">
+	<br>
+	<input type="text" id="view" name="viewName" onblur="myFun5(this)">
+	<script>
+		myFun();
+		//myFun2();
+		myFun3(3);//3출력
+		myFun3();//정상 실행 단 undefined 출력
+		myFun3(3, 5); // 3출력 
+	</script>
+</body>
+</html>
+
+<!-- 
+1. 변수
+2. 함수
+	1. parameter과 100% 일치되지 않은 문법으로도 호출 가능
+	2. arguments.length
+		- 함수의 선언된 변수 개수를 확인하는 속성이 아님
+		  함수 호출시 () 내부에 적용한 데이터 개수(인자값 개수) 파악 가능 -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

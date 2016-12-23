@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="EUC-KR">
+	<title>html tag의 tree 구조 dom parsing으로 이해하고 분석하기</title>
+	
+	<script>
+	  function guess() {
+		   var whatPet;
+		   /*
+		   document.documentElement : html
+		   document.documentElement.lastChild : body tag
+		   nodeName : tag에 한해서만 유효한 속성, tag이름을 반환
+		   
+		   document.getElementsByTagName("h1") : h1 모든 tag를 배열로 반환
+		   document.getElementsByTagName("h1")[0] : 첫번째 h1 tag
+		   																		<h1>애완 동물 이야기</h1>
+		   	nodeValue : text data에 한해서만 유효한 속성, text 가 아니라면 null 		
+		   	
+		   	anotherElement.firstChild 
+		   		= <h1>애완 동물 이야기</h1> 의미
+		   	nodeValue가 유요한 상황을 연출, h1의 하위 text까지 이동
+		   	firstChild or lastChild다 적용 가능 왜? 애완 동물 이야기 하나
+		   		
+		   */
+		   var element = document.documentElement.lastChild;
+		   alert("document의 마지막 자식의 nodeName? " + element.nodeName);//body
+	
+		   var anotherElement = document.getElementsByTagName("h1")[0];//<h1>애완 동물 이야기</h1>
+		   alert("h1 tag의 첫번째 tag의 nodeValue 값은? " + anotherElement.nodeValue);<!-- tag 자체의 nodeValue = null -->
+	
+		   var child = anotherElement.firstChild;//애완 동물 이야기
+		   alert("h1 tag의 첫번째 tag의 firstChild의 nodeValue는? " + child.nodeValue);//애완 동물 이야기
+	
+		   
+		   /*document.getElementById("cat")
+		   	-> <span id="cat"> 고양이 </span>
+		   	document.getElementById("cat").lastChild
+		   	->  고양이 
+		   	
+		   	element.parentNode
+		   		-> 고양이의 부모 : <span id="cat"> 고양이 </span>
+		   	element.parentNode.getAttributeNode("id")
+		   		-> id="cat"
+		   	nodeValue	
+		   		-> cat 	   */
+		   element = document.getElementById("cat").lastChild;
+		   alert("cat id값을 보유한 tag의 nodeValue는? " + element.nodeValue);//고양이
+		   alert("부모 tag의 id 속성 value는? " + element.parentNode.getAttributeNode("id").nodeValue);
+	  }
+	  </script>
+</head>
+
+<body>
+	<h1>애완 동물 이야기</h1>
+	<div id="message">
+		내 애완 동물을 강아지야 너의 애완 동물은 <span id="cat"> 고양이 </span> 였으면 좋겠어.
+	</div>
+
+	<form>
+		<input type="button" value="애완동물은?" onClick="guess();" />
+	</form>
+</body>
+</html>
+
+<!-- 
+1. html 문서의 tree 구조 이해 예제(dom parsing)
+2. 용어 정리 
+	a. tag(element) = element node
+    b. text = text node
+	c. attribute = attribute node
+-->

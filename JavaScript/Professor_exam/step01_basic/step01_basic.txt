@@ -1,0 +1,41 @@
+step01_basic
+
+1. 변수
+	- 변수 선언시 타입 기술 없이 데이터값 대입시 타입이 유동적으로 변경
+	- var 변수명 [=데이터];
+	- 변수명[=데이터];
+	- 종류
+		전역(멤버) 변수
+			- <srcript> tag
+			- 함수 내부 선언
+				var 키워드 없이 변수명 선언시 자동으로 전역 변수
+		로컬 변수
+			- 함수에서 선언 후 함수에서 사용하는 변수
+			- var 변수명[=데이터];
+			- var 키워드 생략 불가 
+2. 사용자 정의 함수 개발
+	function 함수명([...]){}
+	
+	
+3. 지원 함수
+	alert()
+	confirm()
+	prompt()
+	write()
+	parseInt()
+	getElementById()
+	getElementsByTagName()
+	
+
+4. js tag에서 사용 가능한 객체
+	- html의 모든 tag, 속성, text data 모두다 상속 관계도
+	- domcument가 html tag의 상위 객체 
+	- document의 상위 window 객체 
+
+
+
+
+
+
+	
+				

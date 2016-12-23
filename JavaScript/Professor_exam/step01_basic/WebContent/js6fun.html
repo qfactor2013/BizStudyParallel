@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>js6fun.html</title>
+</head>
+<body>
+	<h2>지원 함수 학습</h2>
+	
+	<script>
+		//1 알림경고 함수
+		alert("알림 정보");
+		
+		//2 단순 출력, alert()의 확인 클릭후 실행
+		document.write("body에 출력하는 함수<br>");
+		
+		//3 - 메세지를 주면서 확인용 함수 : 확인/취소 버튼  
+		document.write(confirm("확인") + "<br>");
+		
+		//4 - 데이터 입력창, [화면 출력용 메세지] + 확인 버튼 + 취소 버튼
+			// 입력후 확인(입력된값), 입력후 취소(null), 
+			// 미입력후 확인(blank), 미입력후 취소(null)
+		document.write(prompt(10, "전달하고자 하는 알림 메세지"));
+		
+		//5 - 구버전 브라우저에선 실행 불가 [f12]
+		console.log("이 데이터는 과연 어디에 출력될 것인가?");
+		
+		
+	</script>
+</body>
+</html>
