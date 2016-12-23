@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>js9Exam.html</title>
+</head>
+<body>
+	<h2>문자열 가공 연습 문제</h2>
+	<br><hr><br>
+	
+	1. 모든 문자열<input type="text" id="s1"><br>
+	2. 문자열 일부<input type="text" id="s2"><br>
+	3. 문자열 일부<input type="text" id="s3"><br>
+	
+	<script type="text/javascript">
+		var data = "이 문자열에 5개의 문장 조합";
+		s1.value = data;
+		var dataArray = data.split(" ");//space를 기준으로 배열로 변환
+		dataChar = dataArray[2].charAt(0);
+		document.getElementById("s2").value = dataChar;
+		document.getElementById("s3").value = Number(dataChar);//문자를 숫자로 변환
+		
+	</script>
+	
+</body>
+</html>
+
+
+
+
+
+
+

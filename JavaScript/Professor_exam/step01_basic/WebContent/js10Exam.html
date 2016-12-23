@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>js10Exam.html</title>
+</head>
+<body>
+	<script>
+		 var arr = ['a', 'b', 'c'];
+		 console.log(arr);
+		 
+		 var arr2 = ['c', 'a', 'b'];
+		 console.log(arr2);
+		 arr2.sort(); //정렬 함수
+		 console.log(arr2);
+		 
+		 var arr3 = [25, 12, 60];
+		 console.log(arr3);
+		 arr3.sort(); //정렬 함수
+		 console.log(arr3);
+		 
+		 console.log("-----배열 상위 부모가 물려주는 sort메소드 재정--------");
+		
+		/* sort() : 기본 특성 오름차순
+		left-right : 오름차순
+		25 : 12   	결과값 13
+		12 : 60 		결과값 -48
+		25 : 60 		결과값 -35
+		
+		right-left : 내림차순
+		25 : 12   	결과값 -13
+		12 : 60 		결과값 48
+		25 : 60 		결과값 35  	*/
+		arr3 = [25, 12, 60];
+		arr3.sort(function(left, right){			
+			 console.log(left + " : " + right + " - " + (right-left));
+			 //return left-right;	//오름차순
+			 return right-left;//내림차순
+		 });
+		 console.log(arr3);
+		 
+		 
+	</script>
+</body>
+</html>
+
+
+
+
+

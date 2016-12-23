@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	<meta charset="EUC-KR">
+    <title>영화관 좌석예매</title>
+  
+  </head>
+
+  <body onload="initSeats();">
+
+	<h2>
+		<font color="red">예약 가능한 좌석 : 빨간색</font><br> 
+		<font color="grey">예약 불가능인 좌석 : 회색</font><br>
+		<font color="green">선택(예약)한 좌석 : 초록색</font>
+	</h2>
+	
+	<hr>
+		<h3>*** 셋이서 함께 보는 영화 예약하기 ***</h3>
+	<hr>
+
+    <div style="margin-top:75px; text-align:center">
+      <img id="seat0" src=""  />
+      <img id="seat1" src=""  />
+      <img id="seat2" src=""  />
+      <img id="seat3" src=""  />
+      <img id="seat4" src=""  />
+      <img id="seat5" src=""  />
+      <img id="seat6" src=""  /> 
+      <img id="seat7" src=""  />
+      <img id="seat8" src=""  /><br />
+		<hr><hr>
+      <input type="button" id="findseats" value="좌석예매하기" onclick="findSeats();" />
+    </div>
+
+
+  <script type="text/javascript">
+      var seats = [ false, true, false, true, true, true, false, true, false ];
+
+      function initSeats() {
+        for (var i = 0; i < seats.length; i++) {
+          if (seats[i]) {
+            document.getElementById("seat" + i).src = "seat_avail.png";
+          }else {
+            document.getElementById("seat" + i).src = "seat_unavail.png";
+          }
+        }
+      }
+
+      function findSeats() {
+		initSeats();
+		
+		//movieCheck3.html
+		//??? 3 좌석씩 예약하는 로직으로 개발 하기 
+        for (var i = 0; i < seats.length; i++) {
+          //if(true && true && true) 인 경우 {} 블록 실행
+          if (seats[i] && seats[i + 1] && seats[i + 2]) {
+            var accept = confirm("현 좌석 " + (i + 1) + " 부터 " 
+            					+ (i + 3) + "는 이용 가능합니다. 예약 하시겠습니까?");
+            if (accept) {
+            	 document.getElementById("seat" + i).src = "seat_select.png";//초록색 의자
+                 document.getElementById("seat" + (i + 1)).src = "seat_select.png";
+                 document.getElementById("seat" + (i + 2)).src = "seat_select.png";
+              	break; //반복문 완전 종료
+            }
+          }
+        }
+      }
+    </script>
+  </body>
+</html>

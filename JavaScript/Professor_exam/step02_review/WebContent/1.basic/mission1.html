@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>imgchange.html</title>
+</head>
+<body>
+	<h3>img 변경하기</h3>
+	1. 설계 : 첫 화면에 버튼 클릭시 이미지 변경하기<br>
+	2. 개발설계 : 이미지, 버튼, 버튼 클릭 감지, 처리 로직<br>
+	<br><hr color="blue"><br>
+	
+	<img src="img/Lighthouse.jpg" 
+			height="30%" width="30%"
+			id="viewImage">
+	<br>
+	<button onclick="change()">이미지 변경</button>
+	
+	<!-- ? : img tag 검색 -> src 값 수정 -->
+	<script>
+		function change(){
+			document.getElementById("viewImage").src = "img/Tulips.jpg";
+		}
+	</script>
+</body>
+</html>
+
+
+
+

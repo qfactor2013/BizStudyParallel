@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>infoView.html</title>
+	<script src="info.js"></script>
+</head>
+
+<body>
+		
+	이 름 : <input type="text" id="fname" disabled><br>
+	나 이 : <input type="text" id="fage" disabled><br>
+	현 거주지 : <input type="text" id="faddress"><br>
+	이주 희망 거주지 : <input type="text" id="newAdd"><br>
+	
+	<br><br>
+	
+	<button onclick="comView()">회사 정보 보기</button>
+	<button onclick="friendInfoUp()">친구 나이 한살 올리기</button>
+	<button onclick="friendInfoAddUp()">입력된 주소지로 친구정보 수정하기</button>
+	<br><br>
+	
+	<div id="infoView"></div>
+	
+	<script>
+		
+		function comView(){
+			document.getElementById("infoView").innerHTML
+			= "<font color='blue'>회사명 - "+company.cname
+				+ " : 창립 기념일 - " + company.foundationDay
+				+ " " + company.info() + " " 
+				+ company.info2('교육') + " </font> " ;
+		}
+		
+		//??? 
+		function friendInfoUp(){
+			
+			
+			
+		}
+		
+		//???
+		function friendInfoAddUp(){
+
+		
+		
+		}
+		
+		window.onload = function(){
+			document.getElementById("fname").value = friendInfo.name;
+			document.getElementById("fage").value = friendInfo.age;
+			document.getElementById("faddress").value 	= friendInfo.address;
+		}
+	</script>
+
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>js4DOM.html</title>
+</head>
+<body>
+	<h2>버튼 클릭시 div tag에 table 구조의 데이터 출력</h2>
+	
+	<br><hr><br>
+	
+	<button onclick="change()">클릭</button>
+	<br>
+	<div id="view"></div>
+	
+	<script type="text/javascript">
+		function change(){
+			var data = "<table border='1'><tr><td>데이터</td></tr></table>";
+			document.getElementById("view").innerHTML = data;
+		}
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+

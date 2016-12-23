@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>test.html</title>
+</head>
+<body>
+	<script>
+
+		//??? 유정과 일산 정보가 출력될 수 있도록 수정해 보기
+		var name = "유정이";	//전역변수[멤버변수]
+		function funTest(){
+			var age = 18;
+			address = "일산";
+			return age+' : ' + address;
+		}
+		function funTest2(){
+			document.write(name+"<br>");
+			document.write(funTest()+"<br>");
+		}
+		funTest2();
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+	<title>DOM을 사용한 문서 변경 예제</title>
+	
+	<script type="text/javascript">
+	
+	var count = 0;
+
+	function appendItem() {
+		count++;
+		var newItem = document.createElement("div");//<div></div>
+		
+		//<div id="item_1"></div>
+		newItem.setAttribute("id", "item_" + count);
+		
+		//'새로 추가된 아이템[1]<input type="button" value="삭제" onclick="removeItem('1')"/>';
+		var add= '새로 추가된 아이템[' + count +']' + '<input type="button" value="삭제" onclick="removeItem(' + count + ')"/>';
+		/*
+		<div id="item_1">
+			'새로 추가된 아이템[1]<input type="button" value="삭제" onclick="removeItem('1')"/>';
+		</div>  */
+		newItem.innerHTML = add;
+		
+		/*<div id="itemList"></div>
+		*/
+		var itemListNode = document.getElementById('itemList');
+		
+		/* 
+		<div id="itemList">
+			<div id="item_1">
+				'새로 추가된 아이템[1]<input type="button" value="삭제" 
+												onclick="removeItem('1')"/>';
+			</div>
+		</div>
+		*/
+		itemListNode.appendChild(newItem);
+	}
+
+	//?삭제 버튼 클릭 로직으로 완성하기
+	/*<div id="item_1">
+			'새로 추가된 아이템[1]<input type="button" value="삭제" 
+										onclick="removeItem('1')"/>';
+	  </div> 	*/
+	/* tem.parentNode
+	<div id="itemList">
+		<div id="item_1">
+				'새로 추가된 아이템[1]<input type="button" value="삭제" 
+									onclick="removeItem('1')"/>';
+		</div>
+	</div> 	*/
+	function removeItem(idCount) {
+		var item = document.getElementById("item_" + idCount);
+		if (item != null) {
+			item.parentNode.removeChild(item);
+		}
+	}
+	
+	</script>
+</head>
+<body>
+	<input type='button' value='추가' onclick='appendItem()' />
+	<div id="itemList"></div>
+</body>
+</html>
+
+
+
+
+

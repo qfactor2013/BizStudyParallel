@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- html5 선언 -->
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>js8ProcessBar.html</title>
+</head>
+<body>
+	<h2>진척률 표현하는 processBar를 java script로 어떻게 구현할 것인가?</h2>
+	<br><hr><br>
+	
+	<input type="button" value="다운로드 시작" onclick="down()"><br>
+	<!-- html5 에서만 지원되는 tag -->
+	<progress id="bar" value="0" max="200">
+		<span id="progress"></span>
+	</progress>
+	<script type="text/javascript">
+	/* 사용자 정의 함수는 호출하지 않으면 절대 실행 불가
+		down() 호출 시점 : user가 버튼 클릭 시점
+		
+		setInterval(처리로직, 시간차) : window 객체가 보유한 제공 메소드
+				- 개발자가 이 메소드를 코드 선언 -> 호출을 의미 
+				- load() 메소드 호출
+					: 단, load()메소드는 down() 호출로 인해서 loaded라는 전역변수 생성되어야 함
+		
+		결론: 브라우징 되었을 때 setInterval() 메소드 특징상 0.5초단위로 load() 호출
+		단 user가 down() 호출하는 버튼을 클릭하지 않는한 loaded변수는 존재하지 않기 때문에
+		정상적으로 process bar의 상태값 업그레이드 불가임		*/
+		function down(){
+			var bar = document.getElementById("bar");//로컬 변수
+			process = document.getElementById("progress");//전역 변수
+			loaded = 0;//전역 변수 선언 및 초기화
+		}
+		function load(){
+			loaded = loaded+5;
+			//상동 코드 document.getElementById("bar").value = loaded;
+			//js는 미국표준협회에서 제공한 스펙을 반영
+			//브라우저별 지원 차이가 있음 
+			bar.value=loaded;
+			if(loaded == 100){
+				alert("다운로드가 완료되었습니다");
+				//setInterval() 0.5초마다 자동 실행되는 이벤트를 무효화 하는 절대 함수
+				//setInterval()과 clearInterval() 함께 주로 사용
+				clearInterval(dummyLoad);
+			}			
+		}
+		//함수 개발해서 변수에 대입(등록) -> 함수 호출시에 변수만으로 호출(?) 가능
+		//function(){load()} : 이름이 없는 익명 함수 개발
+		var dummyLoad = setInterval(function(){load()} , 500);
+	</script>
+
+</body>
+</html>
+
+
+
+
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+    <script>
+      var arr = ['a','b','c'];
+      console.log(arr);
+
+      var arr = ['c','a','b'];
+      console.log(arr);
+      arr.sort();
+      console.log(arr);
+
+
+      var arr2 = [25,12,10,60];
+      console.log(arr2);
+      arr2.sort();
+      console.log(arr2);
+
+      //내림 차순 정렬 구현
+
+      arr2.sort(function (left, right) {
+        console.log(left + " : " + right);
+        // return left-right;
+        return right-left;
+      });
+
+      console.log(arr2.reverse());
+
+      </script>
+</body>
+</html>

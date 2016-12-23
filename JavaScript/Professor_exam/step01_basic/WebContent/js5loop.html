@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>js5loop.html</title>
+</head>
+<body>
+	<h2>반복문 학습</h2>
+	<br><hr><br>
+	<!-- ??? 스크립트 tag 실행시 각 tag에 0~4까지 출력하기 -->
+	
+	<input type="text" id="v0"><br>
+	<input type="text" id="v1"><br>
+	<input type="text" id="v2"><br>
+	<input type="text" id="v3"><br>
+	<input type="text" id="v4"><br>
+	
+	<script>
+		var value=0;
+		//??? 0~5까지 라인이 구분된 상태로 브라우저 body 에 출력하기 
+		while(value < 5){
+			//alert(value + "번째 반복");
+			document.write(value + "번째 반복<br>")
+			value++;
+		}
+		value = 0;
+		for(var i=0; i <5; i++){
+			document.write("<b>" + i + "번째 반복</b><br>");
+			document.getElementById("v"+i).value = i;
+		}
+	</script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
