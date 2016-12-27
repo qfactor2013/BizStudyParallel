@@ -1,91 +1,113 @@
 <!doctype html>
 <html lang="ko">
+<script src="food.js"></script>
 <head>
 <meta charset="utf-8">
 <style>
 div.container {
-    width: 90%;
-   	margin-left: 5%;
-    margin-right: 5%;
-    margin-top: 5%;
+	width: 90%;
+	margin-left: 5%;
+	margin-right: 5%;
+	margin-top: 5%;
 }
 
 header, footer {
-    padding: 1em;
-    color: white;
-    background-color: #631414;
-    clear: left;
-    text-align: center;
+	padding: 1em;
+	color: white;
+	background-color: #631414;
+	clear: left;
+	text-align: center;
 }
 
 nav {
-    float: left;
-    max-width: 160px;
-    margin: 0;
-    padding: 1em;
+	float: left;
+	max-width: 160px;
+	margin: 0;
+	padding: 1em;
 }
 
 nav ul {
-    list-style-type: none;
-    padding: 0;
+	list-style-type: none;
+	padding: 0;
 }
-   
+
 nav ul a {
-    text-decoration: none;
+	text-decoration: none;
 }
 
 article {
-    margin-left: 170px;
-    border-left: 1px solid gray;
-    padding: 1em;
-    overflow: hidden;
+	margin-left: 170px;
+	border-left: 1px solid gray;
+	padding: 1em;
+	overflow: hidden;
 }
-
-
 </style>
 </head>
 <body>
 
-<div class="container">
+	<div class="container">
 
-<header>
-   <h1>Food Gallery</h1>
-</header>
-  
-<nav>
-  <ul>
-    <li><a href="#">체리</a></li>
-    <br>
-    <li><a href="#">와인</a></li>
-    <br>
-    <li><a href="#">스테이크</a></li>
-  </ul>
-</nav>
-<script type="text/javascript" src=""></script>
-<article>
-  <div id="view">
-	  	<img id="foot" src="img/cherries.jpg" width="30%" height="50%" style="  float: left; border-radius: 30px;">
-	  	
-	  	<div  style="margin-left: 40%; margin-right: 20%;" >
-	 
-	  		<div id="changeContent">
-				<p>
-				통증 완화 및 소염효과
-				체리에 함유돼 있는 안토시아닌 성분은 아스피린보다 10배나 높은 소염효과가 있답니다
-				소염진통제인 이부프로펜을 먹은 것처럼 통증이 줄어든다는 연구 결과도 있죠
-				이부프로펜은 통증 유발물질을 만드는 효소를 억제해 통증을 줄이는 작용을 한죠
-				</p>
+		<header>
+			<h1>Food Gallery</h1>
+		</header>
+
+		<nav>
+			<ul>
+				<li><a href="#"><span onclick="changeFood('cherries')">체리</span></a></li>
+				<br>
+				<li><a href="#"><span onclick="changeFood('wine')">와인</span></a></li>
+				<br>
+				<li><a href="#"><span onclick="changeFood('steak')">스테이크</span></a></li>
+			</ul>
+		</nav>
+		<script type="text/javascript" src=""></script>
+		<article>
+			<div id="view">
+				<img id="food" src="img/cherries.jpg" width="30%" height="50%"
+					style="float: left; border-radius: 30px;">
+
+				<div style="margin-left: 40%; margin-right: 20%;">
+
+					<div id="changeContent">
+						<p id="foodDesc">
+
+
+						</p>
+					</div>
+
+				</div>
 			</div>
 
-		</div>
-  </div>
-  
-</article>
+		</article>
 
-<footer>Copyright ...</footer>
+		<footer>Copyright ...</footer>
 
-</div>
+	</div>
+	<script type="text/javascript">
+		/*
+			메뉴 클릭시 사진과 데이터 변경
+			개발관점
+			1단계 : 어떤 메뉴가 선택?
+			2단계 : 선택된 메뉴에 맞게 이미지와 데이터 선별해서 출력
+		*/
+		window.onload = function(){
+			document.getElementById('foodDesc').innerText = food.cherries;
+		}
 
+
+		function changeFood(v) {
+			if(v == "wine"){
+				document.getElementById("food").src = "img/wine.jpg";
+				//정보가 화면에 출력 <p id = "foodDesc></p>에 js 객체 내용값 출력 "
+				document.getElementById('foodDesc').innerText = food.wine;
+			}else if(v == "steak"){
+				document.getElementById("food").src = "img/steak.jpg";
+				document.getElementById('foodDesc').innerText = food.steak;
+			}else if(v == "cherries"){
+				document.getElementById("food").src = "img/cherries.jpg";
+				document.getElementById('foodDesc').innerText = food.cherries;
+			}
+		}
+	</script>
 </body>
 </html>
-

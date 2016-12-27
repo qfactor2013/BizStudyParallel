@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>이벤트 및 논리적인 사고력 키우기</title> 
+		<link href="styles/my_style.css" rel="stylesheet">
+	</head> 
+
+	<body>
+		<h3>
+			jQuery로 클릭 이벤트 효과주기 <br>
+			step01 - 실행시 단점[모든 div 클릭시 무작위별 할인 정보 출력]
+		</h3>
+		<hr><br>
+
+		<div id="header">
+			<h2>할인을 위한 점핑</h2>
+		</div>
+
+		<div id="main">
+			<div><img src="images/jump1.jpg"/></div>
+			<div><img src="images/jump2.jpg"/></div>
+			<div><img src="images/jump3.jpg"/></div>
+			<div><img src="images/jump4.jpg"/></div>
+		</div>
+		<script src="scripts/jquery-3.1.1.js"></script>
+		<script>
+			$(document).ready(function() {
+				$("div").click( function() { // 모든 div 선택하고 클릭 로직
+					$("div p").remove();		//div 하위에 p라는 후손
+					var discount = Math.floor((Math.random()*5) + 5);
+					var discount_msg = "<p>당첨된 당신의 할인율 - "+discount+"%</p>";
+					$(this).append(discount_msg);
+				});
+			});
+		</script>
+
+	</body>
+</html>

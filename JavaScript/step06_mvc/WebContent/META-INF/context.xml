@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+
+<!-- tomcat JNDI configuration step 1 -->
+   <Resource name="jdbc/orcl" 
+   			 auth="Container"
+              type="javax.sql.DataSource" 
+              driverClassName="oracle.jdbc.OracleDriver"
+              url="jdbc:oracle:thin:@127.0.0.1:1521:orcl"
+              username="scott" 
+              password="tiger" 
+              maxTotal="20"   
+              maxIdle="10"
+              maxWaitMillis="-1"/>
+<!--maxTotal 최대 동시접속 가능 수 -->
+</Context>

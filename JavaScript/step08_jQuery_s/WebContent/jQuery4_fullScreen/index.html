@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>풀스크린 슬라이더</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <link rel="stylesheet" href="css/common.css">
+
+        <script src="scripts/jquery-3.1.1.js"></script>
+        <script type="text/javascript">
+            var itemOnNum = 1;
+            var timer = setInterval(onTimer, 10000);
+
+            $(document).ready(function() {
+                changeItem(1);
+            });
+
+            function onTimer() {
+                if(itemOnNum < 4) {
+                    itemOnNum++;
+                } else {
+                    itemOnNum = 1;
+                }
+                changeItem(itemOnNum);
+            }
+
+            function changeItem(arg) {
+                $(".item").removeClass("on");
+
+                var selector = "#item" + arg;
+                $(selector).addClass("on");
+            }
+        </script>
+    </head>
+
+    <body>
+        <div class="container">
+            <ul>
+                <li>
+                    <div class="item" id="item1">
+                        <div class="bgImage"></div>
+                        <div class="typography">
+                            <h1>1주차</h1>
+                            <h2> Java Programming</h2>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="item" id="item2">
+                        <div class="bgImage"></div>
+                        <div class="typography">
+                            <h1>2주차</h1>
+                            <h2>SQL & JDBC Programming</h2>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="item" id="item3">
+                        <div class="bgImage"></div>
+                        <div class="typography">
+                            <h1>3주차</h1>
+                            <h2>Servlet & JSP Programming</h2>
+                        </div>
+                    </div>
+                </li>
+
+                <li>
+                    <div class="item" id="item4">
+                        <div class="bgImage"></div>
+                        <div class="typography">
+                            <h1>4주차</h1>
+                            <h2>Java Script & jQuery & Ajax Programming</h2>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </body>
+</html>
+
