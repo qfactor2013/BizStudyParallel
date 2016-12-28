@@ -1,0 +1,64 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=euc-kr" />
+
+	<title>책정보 보기</title>
+	<script type="text/javascript" src="httpRequest.js" ></script>
+
+	<script type="text/javascript">
+	function loadBooks() {
+		sendRequest("books.jsp", null, loadedBooks, "GET");
+	}
+
+	/*
+		html & xml 데이터를 동적으로 처리하는 DOM API review + 응용력 키우기
+	*/
+	function loadedBooks() {
+		if (httpRequest.readyState == 4) {
+			if (httpRequest.status == 200) {
+				var xmlDoc = httpRequest.responseXML; // 서버가 응답한 xml 데이터에 한해서 보유하는 속성
+				var books = xmlDoc.getElementsByTagName('book'); // book tag들을 배열 형태로 반환
+				var message = "책 개수 : " + books.length + "권<br>"; // book tag는 3개
+				// books.item(i)와 getElementsByTagName("book")[i]l;
+
+				for(i=0; i < books.length; i++){
+					var book = books.item(i); // 0번째 -> 1번째 -> 2번째 순으로 반복시마다 index로 배열의 데이터 반환
+
+					/*
+						<book>
+							<title> 프로젝트 생존 전략 </title>
+							<author> 스티브 맥코넬</author>
+						</book>
+
+						getElementsByTagName("title")[0] : <title> 프로젝트 생존 전략</title>
+						getElementsByTagName("title")[0].firstChild : 프로젝트 생존 전략
+						getElementsByTagName("title")[0]/.firshChild.nodeValue : text data에 한해서만 유효 따라서 프로젝트 생존 전략 값 대입
+					*/
+
+					var title = book.getElementsByTagName('title')[0].firstChild.nodeValue;
+					var author = book.getElementsByTagName('author')[0].firstChild.nodeValue;
+					message = message + title + "(" + author + ")<br>";
+				}
+
+				//<br>이라는 문자열을 tag로 활용하기 위한 innerHTML 속성 사용
+				document.getElementById('output').innerHTML = message;
+
+			}
+		}
+	}
+	window.onload = function() {
+		loadBooks();
+	}
+	</script>
+</head>
+<body >
+<center>
+책 정보 출력<br>
+서버에서 xml 형식으로 전송시키는 데이타를 dom parsing으로 처리해서 출력<br><br><br>
+<div id="output">
+</div>
+</center>
+</body>
+</html>

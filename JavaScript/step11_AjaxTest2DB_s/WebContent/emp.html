@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>emp.html</title>
+</head>
+<script type="text/javascript">
+var httpRequest = null;
+    
+    function getXMLHttpRequest() {
+		if (window.ActiveXObject) {
+			try {
+				return new ActiveXObject("Msxml2.XMLHTTP");
+			} catch(e) {
+				try {
+					return new ActiveXObject("Microsoft.XMLHTTP");
+				} catch(e1) { 
+					return null; 
+				}
+			}
+		} else if (window.XMLHttpRequest) {
+			return new XMLHttpRequest();
+		} else {
+			return null;
+		}
+	}
+
+    function sendRequest(params) { 	
+ 		httpRequest = getXMLHttpRequest();		
+		//??? get방식으로 emp.jsp에서 요청하기 위한 코드 완성하기
+				
+		httpRequest.open("GET", "emp.jsp?str="+params, true);
+		
+		
+		httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');// HTML Form 형태 		
+		httpRequest.onreadystatechange = viewTable;
+		
+		//??? 실제 서버에 요청하는 함수 호출하기
+		httpRequest.send(null);		
+    } 
+      /*
+      	select tag의 option이 선택될 때마다 자동 호출되는 js 함수
+      	절대 로직 : 어떤 option이 선택되었나?
+      	document.f.ss.selectedIndex
+      	document : html 문서 자체를 제어가능한 window 객체
+      	document.f : 문서 내부에 f라는 이름의 tag - <form name = "f">
+    	document.f.ss : f 라는 이름의 태그 하위 자식 중 ss 라는 이름의 tag : 
+    	<select onchange = "changeTable()" name = "ss">
+    	document.f.ss.selectedIndex : 선택된 option의 순번
+      */
+     function changeTable(){
+        var str;
+        if(document.f.ss.selectedIndex != 0){
+            str = document.f.ss.value; // 선택된 데이터 read해서 str변수에 대입
+        }else{
+            return;
+        }        
+		var param = "str=" + str; // key = value 구조로 웹쿼리스트링
+		alert(param);
+ 		sendRequest(str);       
+      }
+      //? <p id="t1"></p> tag 데이터 출력
+      function viewTable(){
+    	  if (httpRequest.readyState == 4) { //서버 처리가 완료 됐다면
+  			if (httpRequest.status == 200) { // 정상적으로 처리 됐다면 
+  					t1.innerHTML = httpRequest.responseText; // html 응답이기 때문에 responseText 속성으로 데이터 획득
+  				}
+      		}
+      }
+  </script>
+  <body>
+    <form name="f">
+        <select onchange="changeTable()" name="ss">
+			<option>직종 선택</option>
+            <option value="SALESMAN">SALESMAN</option>
+            <option value="MANAGER">MANAGER</option>
+            <option value="ANALYST">ANALYST</option>
+        </select>
+    </form> 
+    <table width="600" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="100%">
+                <table border="1" style="border-collapse:collapse" cellspacing="0" bordercolor="black" width="100%">
+                    <tr align="center" bgcolor="#dedede">
+                        <td width="10%">사번</td>
+                        <td width="15%">이름</td>
+                        <td width="20%">직종</td>
+                        <td width="15%">급여</td>
+                        <td width="20%">입사일</td>
+                        <td width="20%">부서번호</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td> 
+                <p id="t1"></p>
+            </td>
+        </tr>
+    </table>
+
+  </body>
+</html>
+        
+        
+        
+        
+        
+        

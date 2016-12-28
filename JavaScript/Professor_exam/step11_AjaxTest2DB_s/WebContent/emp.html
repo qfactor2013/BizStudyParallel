@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>emp.html</title>
+</head>
+<script type="text/javascript">
+var httpRequest = null;
+    
+    function getXMLHttpRequest() {
+		if (window.ActiveXObject) {
+			try {
+				return new ActiveXObject("Msxml2.XMLHTTP");
+			} catch(e) {
+				try {
+					return new ActiveXObject("Microsoft.XMLHTTP");
+				} catch(e1) { 
+					return null; 
+				}
+			}
+		} else if (window.XMLHttpRequest) {
+			return new XMLHttpRequest();
+		} else {
+			return null;
+		}
+	}
+
+    function sendRequest(params) { 	
+ 		httpRequest = getXMLHttpRequest();		
+		httpRequest.onreadystatechange = viewTable;
+		//??? get방식으로 emp.jsp에서 요청하기 위한 코드 완성하기
+	
+		httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');// HTML Form 형태 		
+		
+		//??? 실제 서버에 요청하는 함수 호출하기
+		httpRequest.send(null);		
+    } 
+      
+     function changeTable(){
+        var str;
+        if(document.f.ss.selectedIndex != 0){
+            str = document.f.ss.value;
+        }else{
+            return;
+        }        
+		var param = "str=" + str;
+		alert(param);
+ 		sendRequest(str);       
+      }
+      //?
+      function viewTable(){
+       
+      }
+  </script>
+  <body>
+    <form name="f">
+        <select onchange="changeTable()" name="ss">
+			<option>직종 선택</option>
+            <option value="SALESMAN">SALESMAN</option>
+            <option value="MANAGER">MANAGER</option>
+            <option value="ANALYST">ANALYST</option>
+        </select>
+    </form> 
+    <table width="600" cellpadding="0" cellspacing="0">
+        <tr>
+            <td width="100%">
+                <table border="1" style="border-collapse:collapse" cellspacing="0" bordercolor="black" width="100%">
+                    <tr align="center" bgcolor="#dedede">
+                        <td width="10%">사번</td>
+                        <td width="15%">이름</td>
+                        <td width="20%">직종</td>
+                        <td width="15%">급여</td>
+                        <td width="20%">입사일</td>
+                        <td width="20%">부서번호</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td> 
+                <p id="t1"></p>
+            </td>
+        </tr>
+    </table>
+
+  </body>
+</html>
+        
+        
+        
+        
+        
+        

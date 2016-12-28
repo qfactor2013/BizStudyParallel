@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-KR">
+<title>재능 기부</title>
+<script type="text/javascript" src="scripts/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+		function ajaxAll(url) {
+			alert(1);
+		$.ajax({
+			  url : "probono",
+			  data : {"command" : url},
+			  dataType: "html",
+			  type : "POST",
+			  success : function(data) {
+							alert(data);
+							$("#viewData").html(data);
+						},
+			  error : function() {
+							alert("데이터가 없습니다 : " + data);
+						} 
+			});
+		}
+</script>
+</head>
+<body>
+<br><br><br>
+
+<center>
+<h3>재능 기부의 모든 정보 검색하기</h3>
+<hr><p>
+
+</center>
+
+<p>
+<!--
+	probono?command=activistAll -->
+	&nbsp;&nbsp;&nbsp;<span onclick ='ajaxAll("probonoProjectAll")'>1. 진행중인 Probono Project 모두 검색</span><p>
+	
+	&nbsp;&nbsp;&nbsp;<span onclick="ajaxAll('activistAll')">2. 재능 기부 프로젝트에 참여중인 기부자 모두 검색</span><p>	
+	
+	&nbsp;&nbsp;&nbsp;<a href="activistInsert.html">3. 재능 기부자 가입하기</a><p>
+
+
+	<!-- 재능 기부자 검색하기 -->
+	<form action="ajaxSearchActivist()" method="post" >
+	&nbsp;&nbsp;&nbsp;
+	4. 기부자 ID : <input type="text" name="activistId"><input type="submit" value="검색">
+	</form>
+	<p>
+	<br><hr><br>
+	<div id="viewData"></div>
+	
+	
+</body>
+</html>
