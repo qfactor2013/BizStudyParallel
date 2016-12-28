@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+    
+    <script src="scripts/jquery-3.1.1.js"></script>
+</head>
+
+<body>
+	<h5>DOM을 활용한 문서 내용 수정해 보기</h5>
+	<br><hr><br>
+	
+	<h3>----- 1. 문서 객체에 스타일 추가 하기 -----</h3>
+    <script>
+	    $(document).ready(function () {
+			$("h4").css('color','red');
+	    });
+    </script>
+    <h4 class="first">first</h4>
+    <h4 class="second">second</h4>
+    <h4 class="third">third</h4>
+    
+    
+    <h3>----- 2. 문서 객체에 스타일 변경 하기 -----</h3>
+     <script>
+        $(document).ready(function () {
+          var color = ['red', 'white', 'purple'];
+          
+          $("h1").css({
+        	  		color: function(index) {
+						return color[index];
+						
+          				},
+        	  			backgroundColor:'black'
+        	  		});
+        });
+    </script>
+     <h1>Data-0</h1>
+     <h1>Data-1</h1>
+     <h1>Data-2</h1>
+    
+    
+    <h3>----- 3. 문서 객체의 내부 문자 변경 하기 1 -----</h3>
+     <script>
+        $(document).ready(function () {
+        	$(".createTest").each(function(i) {
+				$(this).text("Data-"+i)
+			})
+			
+// 			$(".createTest").html(function(index) {
+// 				return "Data-"+index;
+// 			})
+        });
+    </script>
+     <div class="createTest"></div>
+    <div class="createTest"></div>
+    <div class="createTest"></div>
+    
+    
+     <h3>-----4. 문서 객체의 내부 문자 변경 하기 2 -----</h3>
+    <script>
+        $(document).ready(function () {
+        	$(".four").html(function(index, html) {
+// 				return "*****"+html+"*****";//html 자체에다가 덧붙여준다.
+				return html + "-"+index;
+			});
+        });
+    </script>
+    <div class="four">Data</div>
+    <div class="four">Data</div>
+    <div class="four">Data</div>
+    
+    
+     <h3>-----5. 문서 객체 제거하기  -----</h3>
+    <script>
+      $(document).ready(function () {
+    	  $(".removeTest:first-Child").remove();
+      	$(".removeTest:last-Child").remove();
+      
+      });
+     </script>
+       <div>
+        	<div class="removeTest">---removeTest Data-0</div>
+        	<div class="removeTest">---removeTest Data-1</div>
+    	</div>
+</body>

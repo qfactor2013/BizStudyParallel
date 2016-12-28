@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Login.html</title>
+<script type="text/javascript">
+	var httpRequest = null; 
+	var name = null;
+/*
+ * 비동기 통신이 가능한 java script 요청 객체를 정통방식으로 생성화는 순수 코드
+ 	고려사항 : ie와 non-ie 모두 다고려
+ 	ie 6은 없음 
+ 	ie 6을 제외한 모든 브라우저 용
+ */
+
+	function getXMLHttpRequest() {
+		if (window.XMLHttpRequest) {	
+			return new XMLHttpRequest(); 
+		}else if(window.ActiveXObject) {
+			try {						
+				return new ActiveXObject("Msxml2.XMLHTTP");
+			} catch(e) {
+				try {		
+					return new ActiveXObject("Microsoft.XMLHTTP");
+				} catch(e1) { 
+					return null; 
+				}
+			}
+		} 
+	}
+	
+	
+	/*
+		encodeURICOmponent()
+		- 한글 데이터를 서버에 전송할 때 utf-8 형식으로 가공하는 js 함수
+	*/
+    function sendRequest(params) {    
+		//비동기 요청/응답 처리가 가능한 객체 생성
+ 		httpRequest = getXMLHttpRequest();	
+  			
+		httpRequest.onreadystatechange = viewData;		
+// 서버가 응답한 데이터 받으면 자동 실햄되는 함수
+// 		httpRequest.open("post", "response.jsp", true);
+		// 비동기/post 방식으로 ajaxcontroller를 호출한다.
+		httpRequest.open("get", "response.jsp?id=" + encodeURIComponent(params), true);
+		// get 방식
+		httpRequest.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		//옵션 : post 방식인 경우 생략 시 데이터가 서버에 전송 불가
+		// 요청 헤더 정보 설정 부분
+  		httpRequest.send("id=" + encodeURIComponent(params));
+		/* 실제 서버에 요청 진행하는 함수
+			1. get 방식? 요청 url에 web query 조합되서 전송
+			2. post 방식? 서버에 web query 은닉되어 전송
+			send(null) - get 방식
+			send(웹쿼리스트링) - post 방식
+		*/
+    } 
+	//사용자 정의
+	  function changeAddress(){
+        name = document.getElementById("name").value;		
+ 		sendRequest(name);       
+     }
+//	응답시 호출되는 함수
+/*
+ *  응답 완료 + 정상 응답인 경우에 특정 html 위치에 데이터 출력
+ 	1. readyState == 4 : 응답완료의미
+ 	2. status == 200 : 정상 응답 의미
+ 	3. responseText : server 가 응답한 데이터 값 보유하게 되는 속성
+ 	4. onreadystatechange : 서버가 응답시 자동 실행되는 함수를 등록하는 속성
+ */
+      function viewData(){      
+        if(httpRequest.readyState == 4){
+            if(httpRequest.status == 200){      	
+                var message = httpRequest.responseText;
+                alert(message);
+            	document.getElementById("dataView").innerHTML = "<font color='blue'>"+ message + "</>";
+            }
+        }
+      }
+  </script>
+</head>
+<body>
+	입력후에 포커스 이동 시 서버의 데이터 획득해서 출력<br>
+	<input type="text" id="id" onblur="sendRequest(this.value)"><br>
+	<div id="dataView"></div>	
+</body>
+</html>
